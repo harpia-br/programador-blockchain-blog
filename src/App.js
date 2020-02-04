@@ -290,7 +290,7 @@ const Tutorial = (props) => {
 						Vamos começar a desenvolver o smart contract que vai administrar a lista de tarefas. Crie um arquivo novo com extensão 'sol':
 					</p>
 					<Alert variant='secondary'>
-						$ sudo touch contracts/ListaDeTarefas.sol
+						$ sudo touch src/contracts/ListaDeTarefas.sol
 					</Alert>
 					<p>
 						Abra o arquivo com seu editor favorito e vamos iniciar com a versão e declaração do contrato
@@ -334,7 +334,9 @@ const Tutorial = (props) => {
 						&emsp;&emsp;&emsp;port: 7545, <br />
 						&emsp;&emsp;&emsp;network_id: '*', <br />
 						&emsp;&emsp;{'}'} <br />
-						&emsp;{'}'} <br />
+						&emsp;{'}'}, <br />
+						contracts_directory: './src/contracts/',<br />
+						contracts_build_directory: './src/abis/',<br />
 						solc: {'{'} <br />
 						&emsp;optmizer: {'{'} <br />
 						&emsp;&emsp;&emsp;enabled: true, <br />
@@ -344,10 +346,10 @@ const Tutorial = (props) => {
 						{'}'}
 					</Alert>
 					<p>
-						Agora vamos criar o código de migração do contrato para a rede:
+						Agora vamos criar o código de migração do contrato para a rede, apague o arquivo na pasta migrations e crie o seguinte:
 					</p>
 					<Alert variant='secondary'>
-						$ sudo touch 2_migrations/implantar_contratos.js
+						$ sudo touch migrations/1_implantar_contrato.js
 					</Alert>
 					<p>
 						Note que os arquivos dentro da pasta migrations são ordenado para ordem de execução, vamos por nesse aquivo nesse código:
@@ -450,7 +452,7 @@ const Tutorial = (props) => {
 					<Alert variant='secondary'>
 						$ sudo truffle console<br />
 						contrato = await ListaDeTarefas.deployed()<br />
-						tarefaUm = contrato.tarefas(1)
+						tarefaUm = contrato.tarefas(1)<br />
 						tarefaDois = contrato.tarefas(2)
 					</Alert>
 					<p>
@@ -463,7 +465,7 @@ const Tutorial = (props) => {
 					</p>
 					<Alert variant='secondary'>
 						<p>
-							$ sudo npm install web3 truffle-contract --save
+							$ sudo npm install web3 --save
 						</p>
 						<p>
 							$ sudo npm start
@@ -471,38 +473,38 @@ const Tutorial = (props) => {
 					</Alert>
 					<p>
 						No terminal vai mostra como acessar, abra o navegador e acesse 'localhost:3000', pronto nosso servidor já esta funcionando.
-						Agora abra o arquivo App.js, apague o conteudo e adicione o seguinte:
+						Agora abra o arquivo 'src/App.js', apague o conteudo e adicione o seguinte:
 					</p>
-					<Alert variant='secodary'>
-						import Web3 from 'web3'
-						state = {
-							carregando: true,
-							tarefas: [],
-						}
-						async componentDidMount(){
-							let web3 = null
-							if(window.ethereum){
-								web3 = new Web3(window.ethereum)
-								await window,ethereum.enable()
-							}else{
-								if(window.web3){
-									web3 = window.web3.currentProvider
-								}else{
-									alert('Ethereum browser não detectado! Tente usar o Metamask')
-								}
-							}
-							const conta = await web3.eth.accounts[0]
-							const resultado = await fetch("contracts/ListaDeTarefas.json")
-							const contratoiJson = await resultado.json()
-							const contrato = TruffleContract(contratoJson)
-							contrato.setProvider(web3)
-							const tarefas = contratoSemDados.ListaDeTarefas.deployed()
-
-							this.setState({
-								carregando: true,
-								tarefas,
-							}
-  						}
+					<Alert variant='secondary'>
+						import Web3 from 'web3'<br />
+						state = {'{'}<br />
+							&emsp;carregando: true,<br />
+							&emsp;tarefas: [],<br />
+							{'}'}<br />
+						async componentDidMount(){'{'}<br />
+							&emsp;let web3 = null<br />
+							&emsp;if(window.ethereum){'{'}<br />
+								&emsp;&emsp;web3 = new Web3(window.ethereum)<br />
+								&emsp;&emsp;await window.ethereum.enable()<br />
+							&emsp;{'}'}else{'{'}<br />
+								&emsp;&emsp;if(window.web3){'{'}<br />
+									&emsp;&emsp;&emsp;web3 = window.web3.currentProvider<br />
+								&emsp;&emsp;{'}'}else{'{'}<br />
+									&emsp;&emsp;&emsp;alert('Ethereum browser não detectado! Tente usar o Metamask')<br />
+									&emsp;&emsp;&emsp;return false<br />
+								&emsp;&emsp;{'}'}<br />
+							{'}'}<br />
+							const conta = await web3.eth.accounts[0]<br />
+							const resultado = await fetch("contracts/ListaDeTarefas.json")<br />
+							const contratoJson = await resultado.json()<br />
+							const contrato = TruffleContract(contratoJson)<br />
+							contrato.setProvider(web3)<br />
+							const tarefas = contratoSemDados.ListaDeTarefas.deployed()<br />
+<br />
+							this.setState({'{'}<br />
+								&emsp;carregando: true,<br />
+								&emsp;tarefas,<br />
+							{'}'})<br />
 					</Alert>
 				</div>
 			</div>
