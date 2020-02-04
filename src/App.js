@@ -101,7 +101,7 @@ const Tutorial = (props) => {
 			}}
 			className='pl-4 pr-4'>
 			<h1 style={{ fontFamily: 'Roboto Condensed, sans-serif', }}>
-				Como Construir uma Aplicação Blockchain com Ethereum, Web3.js e Solidity Smart Contracts
+				Como Construir uma Aplicação Blockchain com React, Ethereum, Web3.js e Solidity Smart Contracts
 			</h1>
 			<p className='text-muted'>
 				Por Léo Pereira - 02 de Fevereiro, 2020
@@ -266,14 +266,17 @@ const Tutorial = (props) => {
 				<div id='tutorialConfigurandoOProjeto'>
 					<h3>Configurando o Projeto</h3>
 					<p>
-						Vamos criar um projeto. Primeiro criar um diretório, entre no terminal:
+						Vamos criar um projeto com a Biblioteca React. Primeiro vamos instalar e depois criar o projeto, entre no terminal:
 					</p>
 					<Alert variant='secondary'>
 						<p>
-							$ sudo mkdir lista-de-tarefas
+							$ sudo npm install create-react-app -g
 						</p>
 						<p>
-							$ cd lista-de-tarefas
+							$ sudo create-react-app listaDeTarefas
+						</p>
+						<p>
+							$ cd listaDeTarefas
 						</p>
 					</Alert>
 					<br />
@@ -282,17 +285,6 @@ const Tutorial = (props) => {
 					</p>
 					<Alert variant='secondary'>
 						$ sudo truffle init
-					</Alert>
-					<p>
-						Seu terminal vai mostrar que o projeto foi criado com sucesso. Ele criou os diretórios contracts e migrations que vamos utilizar. Agora vamos inicializar o projeto JavaScript, entre no terminal e reponsa as perguntas com seus dados:
-					</p>
-					<Alert variant='secondary'>
-						<p>
-							$ sudo npm init
-						</p>
-						<p>
-							$ sudo npm install truffle truffle-contract --save
-						</p>
 					</Alert>
 					<p>
 						Vamos começar a desenvolver o smart contract que vai administrar a lista de tarefas. Crie um arquivo novo com extensão 'sol':
@@ -438,8 +430,80 @@ const Tutorial = (props) => {
 						<li>string conteudo - Contém a informação da tarefa</li>
 						<li>bool completada - Variável com apenas dois valores, true ou false, verdadeiro ou falso</li>
 						<li>mapping - O mapeamento server para podermos acessar a lista de tarefas de fora do contrato, no caso mapeamos a identificação da tarefa a variável tarefas</li>
-						<li>function criarTarefa - Essa função recebe um argumento chamado '_conteudo' e especificamos que será um texto, 'string', e armazernar na memória, memory</li>
+						<li>function criarTarefa(string memory _conteudo) public - Essa função recebe um argumento chamado '_conteudo' e especificamos que será um texto, 'string', e armazernar na memória, memory, e a palavra chave 'public' para ser acessada fora</li>
+						<li>contagemDeTarefas ++; - Incrementamos o número total de tarefas</li>
+						<li>tarefas[contagemDeTarefas] - Tarefa(contagemDeTarefas, _conteudo, false); - Colocamos na lista 'tarefas' na posição 'contagemDeTarefas' um novo objeto aparitr do medelo 'Tarefa', onde os agumentos são correspondentes aos campos no modelo</li>
+						<li>constructor() public - Ao migrar o contrato esse metódo é chamado e no caso criamos duas tarefas iniciais</li>
 					</ul>
+					<p>
+						Agora vamos implantar esse novo contrato. Nos vamos implantar uma nova cópia no sso código.
+						Lembre-se smart contract são imutáveis. Não podem ser alterados.
+						Nos podemos sempre criar um novo contrato. Truffle facilita nosso processo nisso.
+						Entre no terminal:
+					</p>
+					<Alert vaiant='secondary'>
+						$ sudo truffle migrate --reset
+					</Alert>
+					<p>
+						E pronto novo contrato no ar. Agora vamos acessar o terminal do Truffle e ver as tarefas na Blockchain.
+					</p>
+					<Alert variant='secondary'>
+						$ sudo truffle console<br />
+						contrato = await ListaDeTarefas.deployed()<br />
+						tarefaUm = contrato.tarefas(1)
+						tarefaDois = contrato.tarefas(2)
+					</Alert>
+					<p>
+						Pronto terminamos nosso contrato agora vamos para aplicação web com React.
+					</p>
+					<h3>Aplicação Web com React</h3>
+					<p>
+						Ao criarmos a aplicação com 'create-react-app', ele já gera tudo necessário para desenvolvermos uma aplicação web.
+						Abra um novo terminal, vamos instalar a bliblioteca para o JavaScript poder acessar a blockchain e inicializar o servidor de desenvolvimento, entre no terminal:
+					</p>
+					<Alert variant='secondary'>
+						<p>
+							$ sudo npm install web3 truffle-contract --save
+						</p>
+						<p>
+							$ sudo npm start
+						</p>
+					</Alert>
+					<p>
+						No terminal vai mostra como acessar, abra o navegador e acesse 'localhost:3000', pronto nosso servidor já esta funcionando.
+						Agora abra o arquivo App.js, apague o conteudo e adicione o seguinte:
+					</p>
+					<Alert variant='secodary'>
+						import Web3 from 'web3'
+						state = {
+							carregando: true,
+							tarefas: [],
+						}
+						async componentDidMount(){
+							let web3 = null
+							if(window.ethereum){
+								web3 = new Web3(window.ethereum)
+								await window,ethereum.enable()
+							}else{
+								if(window.web3){
+									web3 = window.web3.currentProvider
+								}else{
+									alert('Ethereum browser não detectado! Tente usar o Metamask')
+								}
+							}
+							const conta = await web3.eth.accounts[0]
+							const resultado = await fetch("contracts/ListaDeTarefas.json")
+							const contratoiJson = await resultado.json()
+							const contrato = TruffleContract(contratoJson)
+							contrato.setProvider(web3)
+							const tarefas = contratoSemDados.ListaDeTarefas.deployed()
+
+							this.setState({
+								carregando: true,
+								tarefas,
+							}
+  						}
+					</Alert>
 				</div>
 			</div>
 		</Container>
@@ -454,7 +518,7 @@ const MinhaChamada = () => {
 
 const ChamadaTutorial = () => {
 	return <span>
-		Estou aqui para te mostrar como criar sua primeira aplicação blockchain com <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. 
+		Estou aqui para te mostrar como criar sua primeira aplicação blockchain com <b>React</b>, <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. 
 		Você não precisa saber nada sobre blockchain para seguir. Eu vou ensinar do zero. Use esse guia passo a passo com exemplo de códigos
 		e instruções escritas para começar sua jornada como desenvolvedor Blockchain!
 	</span>
