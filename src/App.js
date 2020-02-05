@@ -263,6 +263,7 @@ const Tutorial = (props) => {
 						Metamask também permite administrar sua conta pessoal e seu fundos Ether (moeda digital da rede Ethereum) pque são necessários para pagar as transações.
 					</p>
 				</div>
+
 				<div id='tutorialConfigurandoOProjeto'>
 					<h3>Configurando o Projeto</h3>
 					<p>
@@ -317,7 +318,7 @@ const Tutorial = (props) => {
 						$ sudo truffle compile
 					</Alert>
 					<p>
-						Parabéns! Você escreveu seu primeiro <b>smart contract Ethereum</b>. Um novo arquivo foi gerado './build/contracts/ListaDeTarefas.json'. 
+						Parabéns! Você escreveu seu primeiro <b>smart contract Ethereum</b>. Um novo arquivo foi gerado 'src/abis/ListaDeTarefas.json'. 
 						Esse arquivo smart contract ABI, 'Abstract Binary Interface'. Esse arquivo contém a versão compilado do bytecode para rodar na Máquina Virtual Ethereum e a representação JSON para a aplicação web possa acessar como o JavaScript.
 					</p>
 					<p>
@@ -473,38 +474,49 @@ const Tutorial = (props) => {
 					</Alert>
 					<p>
 						No terminal vai mostra como acessar, abra o navegador e acesse 'localhost:3000', pronto nosso servidor já esta funcionando.
+						Vamos configurar nossa conta e acessar nossa rede Blockchain com o <b>Metamask</b>.
+						Acesse o <b>Ganache</b>, acesse a aba 'accounts' e clique no icone de chave ao lado direitor de alguma das contas e copie o código da chave privada, como na imagem:
+					</p>
+					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<br />
+					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<p>
+						Clique no icone de raposa no canto superior direito do seu navegador google.
+						Clique no icone da conta e depois 'importar conta' depois informe a chave privada copiada.
+						Agorava vamos acessar a nossa Blockchain com essa conta, clique em redes depois 'RPC Personalizada', em nome coloque 'blockchain ganache' e em Nova URL RPC
+						coloque 'http://127.0.0.1:7545', salve e pronto deve aparecer uma quantidade de Ether.
 						Agora abra o arquivo 'src/App.js', apague o conteudo e adicione o seguinte:
 					</p>
 					<Alert variant='secondary'>
 						import Web3 from 'web3'<br />
 						state = {'{'}<br />
-							&emsp;carregando: true,<br />
-							&emsp;tarefas: [],<br />
-							{'}'}<br />
+						&emsp;carregando: true,<br />
+						&emsp;tarefas: [],<br />
+						{'}'}<br />
 						async componentDidMount(){'{'}<br />
-							&emsp;let web3 = null<br />
-							&emsp;if(window.ethereum){'{'}<br />
-								&emsp;&emsp;web3 = new Web3(window.ethereum)<br />
-								&emsp;&emsp;await window.ethereum.enable()<br />
-							&emsp;{'}'}else{'{'}<br />
-								&emsp;&emsp;if(window.web3){'{'}<br />
-									&emsp;&emsp;&emsp;web3 = window.web3.currentProvider<br />
-								&emsp;&emsp;{'}'}else{'{'}<br />
-									&emsp;&emsp;&emsp;alert('Ethereum browser não detectado! Tente usar o Metamask')<br />
-									&emsp;&emsp;&emsp;return false<br />
-								&emsp;&emsp;{'}'}<br />
-							{'}'}<br />
-							const conta = await web3.eth.accounts[0]<br />
-							const resultado = await fetch("contracts/ListaDeTarefas.json")<br />
-							const contratoJson = await resultado.json()<br />
-							const contrato = TruffleContract(contratoJson)<br />
-							contrato.setProvider(web3)<br />
-							const tarefas = contratoSemDados.ListaDeTarefas.deployed()<br />
-<br />
-							this.setState({'{'}<br />
-								&emsp;carregando: true,<br />
-								&emsp;tarefas,<br />
-							{'}'})<br />
+						&emsp;let web3 = null<br />
+						&emsp;if(window.ethereum){'{'}<br />
+						&emsp;&emsp;web3 = new Web3(window.ethereum)<br />
+						&emsp;&emsp;await window.ethereum.enable()<br />
+						&emsp;{'}'}else{'{'}<br />
+						&emsp;&emsp;if(window.web3){'{'}<br />
+						&emsp;&emsp;&emsp;web3 = window.web3.currentProvider<br />
+						&emsp;&emsp;{'}'}else{'{'}<br />
+						&emsp;&emsp;&emsp;alert('Ethereum browser não detectado! Tente usar o Metamask')<br />
+						&emsp;&emsp;&emsp;return false<br />
+						&emsp;&emsp;{'}'}<br />
+						{'}'}<br />
+						const conta = await web3.eth.accounts[0]<br />
+						const resultado = await fetch("contracts/ListaDeTarefas.json")<br />
+						const contratoJson = await resultado.json()<br />
+						const contrato = TruffleContract(contratoJson)<br />
+						contrato.setProvider(web3)<br />
+						const tarefas = contratoSemDados.ListaDeTarefas.deployed()<br />
+						<br />
+						this.setState({'{'}<br />
+						&emsp;carregando: true,<br />
+						&emsp;tarefas,<br />
+						{'}'})<br />
 					</Alert>
 				</div>
 			</div>
