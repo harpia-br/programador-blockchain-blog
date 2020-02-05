@@ -393,6 +393,8 @@ const Tutorial = (props) => {
 						<li>Criamos nosso primeiro smart contract</li>
 						<li>Interagimos com nosso novo contrato na rede Blockchain</li>
 					</ul>
+				</div>
+				<div id='tutorialListaDeTarefas'>
 					<h3>Lista de Tarefas</h3>
 					<p>
 						Vamos agora começar a listar nossas tarefas, vamos primeiro alterar nosso contrato, assim:
@@ -421,6 +423,12 @@ const Tutorial = (props) => {
 							&emsp;constructor() public {'{'}<br />
 							&emsp;&emsp;criarTarefa('Acesse programadorblockchain.com.br');<br />
 							&emsp;&emsp;criarTarefa('Criar aplicação web para acessar nosso contrato'); <br />
+							&emsp;{'}'} <br />
+							<br />
+							&emsp;function alternarCompletada(uint _id) public {'{'}
+							&emsp;Tarefa memory _tarefa = tarefas[_id];
+							&emsp;_tarefa.completada = !_tarefa.completada
+							Eemsp;tarefas[_id] = _tarefa;
 							&emsp;{'}'} <br />
 							{'}'}
 					</Alert>
@@ -518,6 +526,100 @@ const Tutorial = (props) => {
 						&emsp;tarefas,<br />
 						{'}'})<br />
 					</Alert>
+					<p>
+						Parabéns já conseguimos lista dados direto do nossa Blockchain.
+						Vamos entender o que criamos.
+					</p>
+					<ul>
+						<li>Estamos usando a biblioteca <b>React</b> para gera a interface baseda em componete com estados, que controla a renderização dos mesmos. 
+						Para saber mais <a href='https://pt-br.reactjs.org/' target'_blanck'>clique aqui</a></li>
+						<li>Importamos a biblioteca <b>Web3</> que nos permite acessar a rede Blockchain usando javascript. 
+						Para saber mais <a href='https://web3js.readthedocs.io/en/v1.2.6/' target='_blanck'>clique aqui</a></li>
+						<li>Utilzamos ES 6 e 7 nesse tutorial, que pode ser considerado java script além do basico com incluindo:</li>
+						<ul>
+						<li>declarar variável com 'let' - a variável só é visível dentro do bloco de execução</li>
+						<li>declarar constant com 'const' - variável com valor fixo</li>
+						<li>função flecha '() => {}' - forma simplificada de declarar uma função e vincular a classe onde é criada</li>
+						<li>Classes - Declarar classe em JavaScript - quando criada não existia classe apenas funções</li>
+						<li>async await - Tratamento de promessas, requisições assincronas, mais simplificada</li>
+						</ul>
+						<li>Para saber mais <a href='https://www.w3schools.com/js/js_es6.asp' target='_blanck'>clique aqui</a></li>
+						<li>API fetch - fornece uma interfa para busca recursos como arquivos locais ou acessar um sevidor, no nosso caso estamos pegando nosso contrato em formato JSON para podermos usar</li>
+						<li>componentDidMount - É uma função do componente App que e chamada quando o componente é montado pelo React</li>
+						<li>thi.setState() - Essa função altera o estado do nosso compoenete e quando o estado muda o React a função render é chamada novamente e altera na tela os dados alterados</li>
+						<li>{ carregando, tarefas, } = this.state - Desescontrução de objetos uma forma mais fácil de por os dados do objeto direto numa variável</li>
+						<li>tarefas.map - Função declarativa que recebe uma função e percorre a lista de tarefas e retorna o resultado dessa função no caso um componente</li>
+					</ul>
+					<p>
+						Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Ether</b> e que os contratos são imutaveis entaão caso haja um bug no contrato teremos que subir um novo e gastar mais Ether.
+						Então vamos criar um <b>Teste</b> para não gastar tanto Ether. O Truffle já tem o necessário para podermos testar, vamos escrever os teste em JavaScript.
+					</p>
+					<p>
+						Crie um diretório test/ na raiz do projeto e um arquivo chamado 'ListaDeTarefas.test.js':
+					</p>
+					<Alert variant='secondary'>
+						$ sudo mkdir test<br />
+						$ sudo touch test/ListaDeTarefas.test.js
+					</Alert>
+					<p>
+						Insira esse código:
+					</p>
+					<Alert variant='secondary'>
+						const ListaDeTarefas = artifacts.require('./ListaDeTarefas.sol'); <br/>
+						<br />
+						contract('ListaDeTarefas', (contas) => {'{'}<br />
+						$emsp;before(async () => {'{'}<br />
+						&emsp;&emsp;this.listaDeTarefas = await ListaDeTarefas.deployed()<br />
+						&emsp;{'}'})<br />
+						<br />
+						&emsp;it('implementado com sucesso', async () => {'{'}<br />
+						&emsp;&emsp;const endereco = this.listaDeTarefas.address<br />
+						&emsp;&emsp;assert.notEqual(endereco, 0x0)<br />
+						&emsp;&emsp;assert.notEqual(endereco, '')<br />
+						&emsp;&emsp;assert.notEqual(endereco, null)<br />
+						&emsp;&emsp;assert.notEqual(endereco, undefined)<br />
+						&emsp;{'}'})<br />
+						<br />
+						&emsp;it('Lista de tarefas', async () => {'{'}<br />
+						&emsp;&emsp;const contagemDeTarefas = this.listaDeTarefas.contagemDeTarefas()<br />
+						&emsp;&emsp;const tarefaUm = this.listaDeTarefas.tarefas(1)<br />
+						&emsp;&emsp;assert.equal(tarefaUm.id.toNumber(), 1)<br />
+						&emsp;&emsp;assert.equal(tarefaUm.conteudo, 'Acesse programadorblockchain.com.br')<br />
+						&emsp;&emsp;assert.equal(tarefaUm.completada, false)<br />
+						&emsp;&emsp;const tarefaDois = this.listaDeTarefas.tarefas(2)<br />
+						&emsp;&emsp;assert.equal(tarefaDois.id.toNumber(), 2)<br />
+						&emsp;&emsp;assert.equal(tarefaDois.conteudo, 'Acesse programadorblockchain.com.br')<br />
+						&emsp;&emsp;assert.equal(tarefaDois.completada, false)<br />
+						&emsp;&emsp;assert.equal(contagemDeTarefas.toNumber(), 2)<br />
+						&emsp;{'}'})<br />
+						<br />
+						&emsp;it('Criar uma nova tarefa', async () => {'{'}<br />
+						&emsp;&emsp;const resultado = this.listaDeTarefas.criarTarefa('Nova tarefa')<br />
+						&emsp;&emsp;const contagemDeTarefas = this.listaDeTarefas.contagemDeTarefas()<br />
+						&emsp;&emsp;assert.equal(contagemDeTarefas.toNumber(), 3)<br />
+						&emsp;&emsp;const evento = resultado..logs[0].args<br />
+						&emsp;&emsp;assert.equal(evento.id.toNumber(), 3)<br />
+						&emsp;&emsp;assert.equal(evento.conteudo, 'Nova Tarefa')<br />
+						&emsp;&emsp;assert.equal(evento.completada, false)<br />
+						&emsp;{'}'})<br />
+						{'}'})
+					</Alert>
+					<p>
+						Deixe explicar o código. Primeiro pegamos o contrato e colocamos numa constante, como no arquivo de migração.
+						Depois nos chamamos a função 'contract' e escrevemos tudo o que queremos testar.
+						Primeiro testamos se foi implmentado na rede e depois se os valores padrões estão lá.
+						Vamos testar:
+					</p>
+					<Alert variant='secondary'>
+						$ sudo truffle test
+					</Alert>
+					<p>
+						Parabéns ele passa!. Caso apresenta algum erro verifique o código acima.
+					</p>
+				</div>
+				<div id='tutorialCriandoTarefas'>
+					<h3>Criando tarefas</h3>
+					
 				</div>
 			</div>
 		</Container>
