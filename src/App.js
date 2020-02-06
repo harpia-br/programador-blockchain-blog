@@ -133,9 +133,9 @@ const Tutorial = (props) => {
 						<ul>
 							<li><a href='#tutorialInstalandoDependencias'>Instalando Dependências</a></li>
 							<li><a href='#tutorialConfigurandoOProjeto'>Configurando o Projeto</a></li>
-							<li><a href='#tutorialListaDeTarefas'>Lista de Tarefas</a></li>
-							<li><a href='#tutorialCriandoTarefas'>Criando Tarefas</a></li>
-							<li><a href='#tutorialCompletandoTarefas'>Completando Tarefas</a></li>
+							<li><a href='#tutorialContratoInteligente'>Contrato Inteligente</a></li>
+							<li><a href='#tutorialAplicacaoWebComReact'>Aplicação Web com React</a></li>
+							<li><a href='#tutorialTestandoOContrato'>Testando o Contrato</a></li>
 						</ul>
 					</ul>
 				</div>
@@ -183,7 +183,7 @@ const Tutorial = (props) => {
 				<div id='tutorialComoNossoBlockchainVaiFuncionar'>
 					<h3>Como nosso Blockchain vai funcionar?</h3>
 					<p>
-						Nos vamos criar uma <b>aplicação web</b> de lista de tarefas que falará diretamente com a Blockchain. 
+						Nos vamos criar uma <b>aplicação web com React</b> de lista de tarefas que falará diretamente com a Blockchain. 
 						Nos vamos usar a <b>Ethereum Blockchain</b> nesse tutorial, criaremos um <b>smart contract em Solidity</b> que alimetará a lista de tarefas e implantaremos na blockchain.
 						Nos vamos também nos conectar a rede com nossa conta pessoal com a carteira (wallet em inglês) Ethereum para iteragir com nossa lista de tarefas.
 					</p>
@@ -394,10 +394,10 @@ const Tutorial = (props) => {
 						<li>Interagimos com nosso novo contrato na rede Blockchain</li>
 					</ul>
 				</div>
-				<div id='tutorialListaDeTarefas'>
-					<h3>Lista de Tarefas</h3>
+				<div id='tutorialContratoInteligente'>
+					<h3>Contrato Inteligente</h3>
 					<p>
-						Vamos agora começar a listar nossas tarefas, vamos primeiro alterar nosso contrato, assim:
+						Vamos agora atualizar nosso contrato para controlar nossa aplicação, vamos alterar nosso contrato assim:
 					</p>
 					<Alert variant='secondary'>
 							pragma solidity ^0.5.0;
@@ -425,10 +425,10 @@ const Tutorial = (props) => {
 							&emsp;&emsp;criarTarefa('Criar aplicação web para acessar nosso contrato'); <br />
 							&emsp;{'}'} <br />
 							<br />
-							&emsp;function alternarCompletada(uint _id) public {'{'}
-							&emsp;Tarefa memory _tarefa = tarefas[_id];
-							&emsp;_tarefa.completada = !_tarefa.completada
-							Eemsp;tarefas[_id] = _tarefa;
+							&emsp;function alternarCompletada(uint _id) public {'{'}<br />
+							&emsp;&emsp;Tarefa memory _tarefa = tarefas[_id];<br />
+							&emsp;&emsp;_tarefa.completada = !_tarefa.completada<br />
+							&emsp;&emsp;tarefas[_id] = _tarefa;<br />
 							&emsp;{'}'} <br />
 							{'}'}
 					</Alert>
@@ -445,9 +445,10 @@ const Tutorial = (props) => {
 						<li>contagemDeTarefas ++; - Incrementamos o número total de tarefas</li>
 						<li>tarefas[contagemDeTarefas] - Tarefa(contagemDeTarefas, _conteudo, false); - Colocamos na lista 'tarefas' na posição 'contagemDeTarefas' um novo objeto aparitr do medelo 'Tarefa', onde os agumentos são correspondentes aos campos no modelo</li>
 						<li>constructor() public - Ao migrar o contrato esse metódo é chamado e no caso criamos duas tarefas iniciais</li>
+						<li>function alternarCompletada(uint _id) public - Funcção publica para podermos alternar se a tarefa foi concluída</li>
 					</ul>
 					<p>
-						Agora vamos implantar esse novo contrato. Nos vamos implantar uma nova cópia no sso código.
+						Agora vamos implantar esse novo contrato. Nos vamos implantar uma nova cópia nosso código.
 						Lembre-se smart contract são imutáveis. Não podem ser alterados.
 						Nos podemos sempre criar um novo contrato. Truffle facilita nosso processo nisso.
 						Entre no terminal:
@@ -462,11 +463,15 @@ const Tutorial = (props) => {
 						$ sudo truffle console<br />
 						contrato = await ListaDeTarefas.deployed()<br />
 						tarefaUm = contrato.tarefas(1)<br />
-						tarefaDois = contrato.tarefas(2)
+						tarefaDois = contrato.tarefas(2)<br />
+						contrato.alternarCompletada(1)<br />
+						tarefaUm = contrato.tarefas(1)<br />
 					</Alert>
 					<p>
 						Pronto terminamos nosso contrato agora vamos para aplicação web com React.
 					</p>
+				</div>
+				<div id='tutorialAplicacaoWebComReact'>
 					<h3>Aplicação Web com React</h3>
 					<p>
 						Ao criarmos a aplicação com 'create-react-app', ele já gera tudo necessário para desenvolvermos uma aplicação web.
@@ -487,7 +492,10 @@ const Tutorial = (props) => {
 					</p>
 					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
 					<br />
+					<br />
 					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<br />
+					<br />
 					<p>
 						Clique no icone de raposa no canto superior direito do seu navegador google.
 						Clique no icone da conta e depois 'importar conta' depois informe a chave privada copiada.
@@ -532,8 +540,8 @@ const Tutorial = (props) => {
 					</p>
 					<ul>
 						<li>Estamos usando a biblioteca <b>React</b> para gera a interface baseda em componete com estados, que controla a renderização dos mesmos. 
-						Para saber mais <a href='https://pt-br.reactjs.org/' target'_blanck'>clique aqui</a></li>
-						<li>Importamos a biblioteca <b>Web3</> que nos permite acessar a rede Blockchain usando javascript. 
+						Para saber mais <a href='https://pt-br.reactjs.org/' target='_blanck'>clique aqui</a></li>
+						<li>Importamos a biblioteca <b>Web3</b> que nos permite acessar a rede Blockchain usando javascript. 
 						Para saber mais <a href='https://web3js.readthedocs.io/en/v1.2.6/' target='_blanck'>clique aqui</a></li>
 						<li>Utilzamos ES 6 e 7 nesse tutorial, que pode ser considerado java script além do basico com incluindo:</li>
 						<ul>
@@ -547,11 +555,16 @@ const Tutorial = (props) => {
 						<li>API fetch - fornece uma interfa para busca recursos como arquivos locais ou acessar um sevidor, no nosso caso estamos pegando nosso contrato em formato JSON para podermos usar</li>
 						<li>componentDidMount - É uma função do componente App que e chamada quando o componente é montado pelo React</li>
 						<li>thi.setState() - Essa função altera o estado do nosso compoenete e quando o estado muda o React a função render é chamada novamente e altera na tela os dados alterados</li>
-						<li>{ carregando, tarefas, } = this.state - Desescontrução de objetos uma forma mais fácil de por os dados do objeto direto numa variável</li>
+						<li>{'{'} carregando, tarefas, {'}'} = this.state - Desescontrução de objetos uma forma mais fácil de por os dados do objeto direto numa variável</li>
 						<li>tarefas.map - Função declarativa que recebe uma função e percorre a lista de tarefas e retorna o resultado dessa função no caso um componente</li>
 					</ul>
 					<p>
 						Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Ether</b> e que os contratos são imutaveis entaão caso haja um bug no contrato teremos que subir um novo e gastar mais Ether.
+					</p>
+				</div>
+				<div id='tutorialTestandoOContrato'>
+					<h3>Testando o Contrato</h3>
+					<p>
 						Então vamos criar um <b>Teste</b> para não gastar tanto Ether. O Truffle já tem o necessário para podermos testar, vamos escrever os teste em JavaScript.
 					</p>
 					<p>
@@ -597,10 +610,19 @@ const Tutorial = (props) => {
 						&emsp;&emsp;const resultado = this.listaDeTarefas.criarTarefa('Nova tarefa')<br />
 						&emsp;&emsp;const contagemDeTarefas = this.listaDeTarefas.contagemDeTarefas()<br />
 						&emsp;&emsp;assert.equal(contagemDeTarefas.toNumber(), 3)<br />
-						&emsp;&emsp;const evento = resultado..logs[0].args<br />
+						&emsp;&emsp;const evento = resultado.logs[0].args<br />
 						&emsp;&emsp;assert.equal(evento.id.toNumber(), 3)<br />
 						&emsp;&emsp;assert.equal(evento.conteudo, 'Nova Tarefa')<br />
 						&emsp;&emsp;assert.equal(evento.completada, false)<br />
+						&emsp;{'}'})<br />
+						<br />
+						&emsp;it('Alternar tarefa completada', async () => {'{'}<br />
+						&emsp;&emsp;const resultado = this.listaDeTarefas.alternarCompletada(1)<br />
+						&emsp;&emsp;const tarefaUm = this.listaDeTarefas.tarefas(1)<br />
+						&emsp;&emsp;assert.equal(tarefaUm.completada, true)<br />
+						&emsp;&emsp;const evento = resultado.logs[0].args<br />
+						&emsp;&emsp;assert.equal(evento.id.toNumber(), 1)<br />
+						&emsp;&emsp;assert.equal(evento.completada, true)<br />
 						&emsp;{'}'})<br />
 						{'}'})
 					</Alert>
@@ -614,13 +636,11 @@ const Tutorial = (props) => {
 						$ sudo truffle test
 					</Alert>
 					<p>
-						Parabéns ele passa!. Caso apresenta algum erro verifique o código acima.
+						Parabéns. Concluímos nosso tutorial, criamos uma aplicação blockchain completa alimentada por Smart Contract da Ethereum! 
+						Você pode baixar o projeto completo <a href='https://github.com/harpia-br/tutorial-lista-de-tarefas-blockchain' target='_blanck'>aqui</a>!
 					</p>
 				</div>
-				<div id='tutorialCriandoTarefas'>
-					<h3>Criando tarefas</h3>
-					
-				</div>
+
 			</div>
 		</Container>
 		</>
