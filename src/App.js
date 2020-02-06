@@ -427,7 +427,7 @@ const Tutorial = (props) => {
 							<br />
 							&emsp;function alternarCompletada(uint _id) public {'{'}<br />
 							&emsp;&emsp;Tarefa memory _tarefa = tarefas[_id];<br />
-							&emsp;&emsp;_tarefa.completada = !_tarefa.completada<br />
+							&emsp;&emsp;_tarefa.completada = !_tarefa.completada;<br />
 							&emsp;&emsp;tarefas[_id] = _tarefa;<br />
 							&emsp;{'}'} <br />
 							{'}'}
@@ -466,6 +466,8 @@ const Tutorial = (props) => {
 						tarefaDois = contrato.tarefas(2)<br />
 						contrato.alternarCompletada(1)<br />
 						tarefaUm = contrato.tarefas(1)<br />
+						contrato.criarTarefa('Teste de cadsatro')<br />
+						tarefaTres = contrato.tarefas(3)<br />
 					</Alert>
 					<p>
 						Pronto terminamos nosso contrato agora vamos para aplicação web com React.
@@ -578,15 +580,15 @@ const Tutorial = (props) => {
 						Insira esse código:
 					</p>
 					<Alert variant='secondary'>
-						const ListaDeTarefas = artifacts.require('./ListaDeTarefas.sol'); <br/>
+						const ListaDeTarefas = artifacts.require('./src/contracts/ListaDeTarefas.sol'); <br/>
 						<br />
 						contract('ListaDeTarefas', (contas) => {'{'}<br />
-						$emsp;before(async () => {'{'}<br />
+						&emsp;before(async () => {'{'}<br />
 						&emsp;&emsp;this.listaDeTarefas = await ListaDeTarefas.deployed()<br />
 						&emsp;{'}'})<br />
 						<br />
 						&emsp;it('implementado com sucesso', async () => {'{'}<br />
-						&emsp;&emsp;const endereco = this.listaDeTarefas.address<br />
+						&emsp;&emsp;const endereco = await this.listaDeTarefas.address<br />
 						&emsp;&emsp;assert.notEqual(endereco, 0x0)<br />
 						&emsp;&emsp;assert.notEqual(endereco, '')<br />
 						&emsp;&emsp;assert.notEqual(endereco, null)<br />
@@ -594,35 +596,32 @@ const Tutorial = (props) => {
 						&emsp;{'}'})<br />
 						<br />
 						&emsp;it('Lista de tarefas', async () => {'{'}<br />
-						&emsp;&emsp;const contagemDeTarefas = this.listaDeTarefas.contagemDeTarefas()<br />
-						&emsp;&emsp;const tarefaUm = this.listaDeTarefas.tarefas(1)<br />
+						&emsp;&emsp;const contagemDeTarefas = await this.listaDeTarefas.contagemDeTarefas()<br />
+						&emsp;&emsp;const tarefaUm = await this.listaDeTarefas.tarefas(1)<br />
 						&emsp;&emsp;assert.equal(tarefaUm.id.toNumber(), 1)<br />
 						&emsp;&emsp;assert.equal(tarefaUm.conteudo, 'Acesse programadorblockchain.com.br')<br />
 						&emsp;&emsp;assert.equal(tarefaUm.completada, false)<br />
-						&emsp;&emsp;const tarefaDois = this.listaDeTarefas.tarefas(2)<br />
+						&emsp;&emsp;const tarefaDois = await this.listaDeTarefas.tarefas(2)<br />
 						&emsp;&emsp;assert.equal(tarefaDois.id.toNumber(), 2)<br />
-						&emsp;&emsp;assert.equal(tarefaDois.conteudo, 'Acesse programadorblockchain.com.br')<br />
+						&emsp;&emsp;assert.equal(tarefaDois.conteudo, 'Criar aplicação web para acessar nosso contrato')<br />
 						&emsp;&emsp;assert.equal(tarefaDois.completada, false)<br />
 						&emsp;&emsp;assert.equal(contagemDeTarefas.toNumber(), 2)<br />
 						&emsp;{'}'})<br />
 						<br />
 						&emsp;it('Criar uma nova tarefa', async () => {'{'}<br />
-						&emsp;&emsp;const resultado = this.listaDeTarefas.criarTarefa('Nova tarefa')<br />
-						&emsp;&emsp;const contagemDeTarefas = this.listaDeTarefas.contagemDeTarefas()<br />
+						&emsp;&emsp;await this.listaDeTarefas.criarTarefa('Nova Tarefa')<br />
+						&emsp;&emsp;const contagemDeTarefas = await this.listaDeTarefas.contagemDeTarefas()<br />
 						&emsp;&emsp;assert.equal(contagemDeTarefas.toNumber(), 3)<br />
-						&emsp;&emsp;const evento = resultado.logs[0].args<br />
-						&emsp;&emsp;assert.equal(evento.id.toNumber(), 3)<br />
-						&emsp;&emsp;assert.equal(evento.conteudo, 'Nova Tarefa')<br />
-						&emsp;&emsp;assert.equal(evento.completada, false)<br />
+						&emsp;&emsp;const tarefaTres = await this.listaDeTarefas.tarefas(3)<br />
+						&emsp;&emsp;assert.equal(tarefaTres.id.toNumber(), 3)<br />
+						&emsp;&emsp;assert.equal(tarefaTres.conteudo, 'Nova Tarefa')<br />
+						&emsp;&emsp;assert.equal(tarefaTres.completada, false)<br />
 						&emsp;{'}'})<br />
 						<br />
 						&emsp;it('Alternar tarefa completada', async () => {'{'}<br />
-						&emsp;&emsp;const resultado = this.listaDeTarefas.alternarCompletada(1)<br />
-						&emsp;&emsp;const tarefaUm = this.listaDeTarefas.tarefas(1)<br />
+						&emsp;&emsp;await this.listaDeTarefas.alternarCompletada(1)<br />
+						&emsp;&emsp;const tarefaUm = await this.listaDeTarefas.tarefas(1)<br />
 						&emsp;&emsp;assert.equal(tarefaUm.completada, true)<br />
-						&emsp;&emsp;const evento = resultado.logs[0].args<br />
-						&emsp;&emsp;assert.equal(evento.id.toNumber(), 1)<br />
-						&emsp;&emsp;assert.equal(evento.completada, true)<br />
 						&emsp;{'}'})<br />
 						{'}'})
 					</Alert>
