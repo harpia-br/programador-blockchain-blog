@@ -2,26 +2,20 @@ import React from 'react';
 import { 
 	Navbar, 
 	Nav, 
-} from 'react-bootstrap';
-import {
 	Container,
 	Row,
 	Col,
 	Image,
 	Alert,
+	Jumbotron,
+	Button,
 } from 'react-bootstrap';
 import {
 	Route,
 	Switch,
 	withRouter,
-} from 'react-router-dom';
-import {
-	Jumbotron,
-	Button,
-} from 'react-bootstrap';
-import {
 	Link,
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 function App() {
 	return (
@@ -88,14 +82,16 @@ const Conteudo = () => {
 	</Container>
 }
 
-const Tutorial = (props) => {
-	const tutorial = props.match.params.tutorial
+class Tutorial extends React.Component {
+
+	render () {
+		const tutorial = this.props.match.params.tutorial
 
 	return <>
 		<Container
 			style={{
-				maxWidth: '650px',
-				minHeight: '500px',
+				maxWidth: '850px',
+				minHeight: '800px',
 				paddingTop: '20px',
 				paddingBottom: '20px',
 			}}
@@ -200,13 +196,13 @@ const Tutorial = (props) => {
 						O <a href=''>Ganache</a> simula o comportamento da blockchain pública. Permite implantar smart contracts, desenvolver aplicações e rodar testes. 
 						Está diponível para Windows, Mac, Linux como uma aplicação desktop ou por linha de comando
 					</p>
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/1-ganache.png' rounded fluid/>
 					<p>
 						Você pode encontrar a ultima versão do software para seu sistema operacional <a href='https://github.com/trufflesuite/ganache/releases' target='_blanck'>clique aqui</a>.
 						Uma vez baixado o arquivo compactado, extraia o instalado e rode atraves dos passo de configuração. 
 						Quando terminar e abrir terá uma página parecida como essa:
 					</p>
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/2-ganache.png' rounded fluid/>
 					<p>
 						Pronto agora temos uma rede blockchain pessoal rodando!
 						Sem o Ganache teriamos que criar uma rede do zero ou testa na rede pública, além de criar contas e carteiras e colocar crédito em cada uma delas.
@@ -227,7 +223,7 @@ const Tutorial = (props) => {
 					<p>
 						Agora vamos instalar o <a href='https://truffle.com' target='_blanck'>Truffle</a>, que providencia as ferramentas necessárias para desenvolver smart contract em Ethereum na linguagem de programação Solidity.
 					</p>
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/4-truffle.png' rounded fluid/>
 					<p>Aqui um visão geral com algumas as funcionalidade do Truffle:</p>
 					<ul>
 						<li>
@@ -255,7 +251,7 @@ const Tutorial = (props) => {
 						Agora vamos transformar seu browser em um browser blockchain.
 						A maioria dos browsers não estão conectados as redes blockchain, para isso vamos instalar uma extensão que permite isso.
 					</p>
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/9-metamask.png' rounded fluid/>
 					<p>
 						Para instalar o <b>Metamask</b>, <a href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=pt-br' target='_blanck'>visite esse link</a> ou procure por Metamask Chrome plugin na loja web do Google Chrome. Quando instalado você verá um icone de raposa no topo direito.
 					</p>
@@ -336,7 +332,6 @@ const Tutorial = (props) => {
 						&emsp;&emsp;&emsp;network_id: '*', <br />
 						&emsp;&emsp;{'}'} <br />
 						&emsp;{'}'}, <br />
-						contracts_directory: './src/contracts/',<br />
 						contracts_build_directory: './src/abis/',<br />
 						solc: {'{'} <br />
 						&emsp;optmizer: {'{'} <br />
@@ -350,7 +345,7 @@ const Tutorial = (props) => {
 						Agora vamos criar o código de migração do contrato para a rede, apague o arquivo na pasta migrations e crie o seguinte:
 					</p>
 					<Alert variant='secondary'>
-						$ sudo touch migrations/1_implantar_contrato.js
+						$ sudo touch migrations/2_implantar_contrato.js
 					</Alert>
 					<p>
 						Note que os arquivos dentro da pasta migrations são ordenado para ordem de execução, vamos por nesse aquivo nesse código:
@@ -481,7 +476,7 @@ const Tutorial = (props) => {
 					</p>
 					<Alert variant='secondary'>
 						<p>
-							$ sudo npm install web3 --save
+							$ sudo npm install web3 react-bootstrap bootstrap --save
 						</p>
 						<p>
 							$ sudo npm start
@@ -492,10 +487,10 @@ const Tutorial = (props) => {
 						Vamos configurar nossa conta e acessar nossa rede Blockchain com o <b>Metamask</b>.
 						Acesse o <b>Ganache</b>, acesse a aba 'accounts' e clique no icone de chave ao lado direitor de alguma das contas e copie o código da chave privada, como na imagem:
 					</p>
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/5-ganache.png' rounded fluid/>
 					<br />
 					<br />
-					<Image src='imagens/smart-contracts-ethereum-contratos-inteligentes-740x492.png' rounded fluid/>
+					<Image src='imagens/6-ganache.png' rounded fluid/>
 					<br />
 					<br />
 					<p>
@@ -505,61 +500,263 @@ const Tutorial = (props) => {
 						coloque 'http://127.0.0.1:7545', salve e pronto deve aparecer uma quantidade de Ether.
 						Agora abra o arquivo 'src/App.js', apague o conteudo e adicione o seguinte:
 					</p>
+
 					<Alert variant='secondary'>
-						import Web3 from 'web3'<br />
+						/* Biblioteca para criar nossos componentes */<br />
+						import React from 'react';<br />
+						/* Biblioteca para acessar contratos na rede Ethereum */<br />
+						import Web3 from 'web3';<br />
+						/* Importando o contrato */<br />
+						import ListaDeTarefas from './abis/ListaDeTarefas.json'<br />
+						/* Componentes para nossa aplicação web */<br />
+						&emsp;import {'{'}<br />
+						&emsp;Table,<br />
+						&emsp;Container,<br />
+						&emsp;Form,<br />
+						&emsp;Button,<br />
+						&emsp;InputGroup,<br />
+						&emsp;FormControl,<br />
+						{'}'} from 'react-bootstrap'<br />
+						<br />
+						/* Declaração do nosso componente */<br />
+						class App extends React.Component {'{'}<br />
+						<br />
+						/* Alguns componentes React tem um 'estado', com dados, <br />
+						* para controlar a renderização do componente */<br />
 						state = {'{'}<br />
-						&emsp;carregando: true,<br />
-						&emsp;tarefas: [],<br />
+						&emsp;/* Variável para manejar o processamento dos dados */<br />
+						&emsp;carregando{':'} true,<br />
+						&emsp;/* Variável para guardar a lista de tarefas dentro do contrato */<br />
+						&emsp;tarefas{':'} [],<br />
+						&emsp;/* Variável para guardar a conta que está selecionada no Metamask */<br />
+						&emsp;conta{':'} null,<br />
+						&emsp;/* Variável para receber o conteúdo da nova tarefa */<br />
+						&emsp;novoConteudo{':'} '',<br />
+						&emsp;/* Variável para guardar o contrato que vamos utilizar */<br />
+						&emsp;contrato{':'} null,<br />
 						{'}'}<br />
-						async componentDidMount(){'{'}<br />
+						<br />
+						/* Função que participa do ciclo de vida do componente com estado,<br />
+						* ela é chamada quando o componente está montado, essa no caso é<br />
+						* ideal para fazer solicitações assíncronas, palavra chave 'async' <br />
+						* facilita o trabalho com funções assíncronas, fazendo parte da ES7<br />
+						* do JavaScript */<br />
+						async componentDidMount() {'{'}<br />
+						/* Todas as solicitações Web3 são assíncronas e o uso do ES7 async await<br />
+						* ajuda muito a reduzir o código e facilita a manutenção */<br />
+						<br />
+						/* Criando uma instância do Web3 */<br />
 						&emsp;let web3 = null<br />
+						&emsp;/* Browser novos já tem acesso a rede Ethereum, como Mist ou Metamask */<br />
 						&emsp;if(window.ethereum){'{'}<br />
 						&emsp;&emsp;web3 = new Web3(window.ethereum)<br />
 						&emsp;&emsp;await window.ethereum.enable()<br />
 						&emsp;{'}'}else{'{'}<br />
+						&emsp;&emsp;/* Acessando a extensão de acesso a rede Ethereum */<br />
 						&emsp;&emsp;if(window.web3){'{'}<br />
-						&emsp;&emsp;&emsp;web3 = window.web3.currentProvider<br />
+						&emsp;&emsp;&emsp;web3 = new Web3(Web3.givenProvider)<br />
 						&emsp;&emsp;{'}'}else{'{'}<br />
 						&emsp;&emsp;&emsp;alert('Ethereum browser não detectado! Tente usar o Metamask')<br />
 						&emsp;&emsp;&emsp;return false<br />
 						&emsp;&emsp;{'}'}<br />
-						{'}'}<br />
-						const conta = await web3.eth.accounts[0]<br />
-						const resultado = await fetch("contracts/ListaDeTarefas.json")<br />
-						const contratoJson = await resultado.json()<br />
-						const contrato = TruffleContract(contratoJson)<br />
-						contrato.setProvider(web3)<br />
-						const tarefas = contratoSemDados.ListaDeTarefas.deployed()<br />
+						&emsp;{'}'}<br />
 						<br />
-						this.setState({'{'}<br />
-						&emsp;carregando: true,<br />
-						&emsp;tarefas,<br />
-						{'}'})<br />
+						&emsp;/* Pega as contas que estão no caso no Metamask e traz a selecionada */<br />
+						&emsp;const contas = await web3.eth.getAccounts()<br />
+						&emsp;const conta = contas[0]<br />
+						&emsp;/* Dados da rede que estamo conecta no caso a rede Ganache */<br />
+						&emsp;const rede_id = await web3.eth.net.getId()<br />
+						&emsp;const dadosRede = ListaDeTarefas.networks[rede_id]<br />
+						&emsp;if(dadosRede){'{'}<br />
+						&emsp;&emsp;/* Pegando o contrato com o arquivo gerado pelo Truffle e o endereço da nossa rede */<br />
+						&emsp;&emsp;const contratoListaDeTarefas = new web3.eth.Contract(ListaDeTarefas.abi, dadosRede.address)<br />
+						&emsp;&emsp;/* buscando as tarefas dentro do contrato */<br />
+						&emsp;&emsp;const tarefas = await this.buscarTarefas(contratoListaDeTarefas)<br />
+						&emsp;&emsp;/* A função setState() alterar o estado do objeto, quando o estado é diferente do atual <br />
+						&emsp;&emsp;* o algoritmo de reconciliciação do React avalia o que vai mudar na redenrização e altera<br />
+						&emsp;&emsp;* apenas aquela informação, esse é o que faz O react tão diferente e poderoso */<br />
+						&emsp;&emsp;this.setState({'{'}<br />
+						&emsp;&emsp;&emsp;carregando{':'} false,<br />
+						&emsp;&emsp;&emsp;tarefas,<br />
+						&emsp;&emsp;&emsp;contrato{':'} contratoListaDeTarefas,<br />
+						&emsp;&emsp;&emsp;conta,<br />
+						&emsp;&emsp;{'}'})<br />
+						&emsp;&emsp;{'}'}else{'{'}<br />
+						&emsp;&emsp;&emsp;alert('Contrato ListaDeTarefas não está implementado!')<br />
+						&emsp;&emsp;{'}'}<br />
+						&emsp;{'}'}<br />
+						<br />
+						&emsp;/* No React podemos controlar nosso formulário para não ter a necessidade de submeter o mesmo,<br />
+						&emsp;* além de poder filtrar os dados passado pela entrada de dados e quem altera o que é mostrado <br />
+						&emsp;* é o algoritmo de reconciliação */<br />
+						&emsp;alterarCampo = event => {'{'}<br />
+						&emsp;&emsp;/* Desestruturação do objeto para por os dados já em variáveis utilizad pelo ES6*/<br />
+						&emsp;&emsp;const {'{'}<br />
+						&emsp;&emsp;&emsp;value,<br />
+						&emsp;&emsp;&emsp;name,<br />
+						&emsp;&emsp;{'}'} = event.target<br />
+						&emsp;&emsp;this.setState({'{'} [name]: value {'}'})<br />
+						&emsp;{'}'}<br />
+						<br />
+						&emsp;criarTarefa = async () => {'{'}<br />
+						&emsp;&emsp;const {'{'}<br />
+						&emsp;&emsp;&emsp;contrato,<br />
+						&emsp;&emsp;&emsp;novoConteudo,<br />
+						&emsp;&emsp;&emsp;conta,<br />
+						&emsp;&emsp;{'}'} = this.state<br />
+						&emsp;if(novoConteudo === ''){'{'}<br />
+						&emsp;&emsp;alert('Informe o conteúdo')<br />
+						&emsp;&emsp;return false<br />
+						&emsp;{'}'}<br />
+						&emsp;try{'{'}<br />
+						&emsp;&emsp;this.setState({'{'}carregando{':'} true{'}'})<br />
+						&emsp;&emsp;/* Acesso aos métodos públicos do contrato, quando um método altera o estado<br />
+						&emsp;&emsp;* do contrato usa-se o método 'send' com a conta do usuário selecionado <br />
+						&emsp;&emsp;* no Metamask além de usar 'Gas Fee', seria como a taxa de processamento,<br />
+						&emsp;&emsp;* como por exemplo quando você faz uma compra na internet além do valor do<br />
+						&emsp;&emsp;* produto paga-se a taxa de entrega que também é paga em valor por isso,<br />
+						&emsp;&emsp;* na rede Ethereum a moeda é o Ether e o Gas seria uma fração de Ether,<br />
+						&emsp;&emsp;* essa taxa é paga para quem faz o processamento, chamado de mineradores,<br />
+						&emsp;&emsp;* ao chamar essa função um notificação do MetaMask mostra-rá os valores e<br />
+						&emsp;&emsp;* se você aceita essa transação ou não */<br />
+						<br />
+						&emsp;&emsp;&emsp;await contrato.methods.criarTarefa(novoConteudo).send({'{'}from{':'} conta{'}'})<br />
+						&emsp;&emsp;&emsp;/* Logo depois de criar uma nova tarefa, buscar as tarefas do contrao e<br />
+						&emsp;&emsp;&emsp;* submetido ao estado para que o React faça a alteração da renderização */<br />
+						&emsp;&emsp;&emsp;const tarefas = await this.buscarTarefas(contrato)<br />
+						&emsp;&emsp;&emsp;this.setState({'{'}<br />
+						&emsp;&emsp;&emsp;&emsp;tarefas,<br />
+						&emsp;&emsp;&emsp;&emsp;novoConteudo: '',<br />
+						&emsp;&emsp;&emsp;&emsp;carregando{':'} false,<br />
+						&emsp;&emsp;&emsp;{'}'})<br />
+						&emsp;&emsp;{'}'} catch (error) {'{'}<br />
+						&emsp;&emsp;/* Caso seja rejeitada a transação volta ao estado anterior */<br />
+						&emsp;&emsp;this.setState({'{'}<br />
+						&emsp;&emsp;&emsp;carregando{':'} false,<br />
+						&emsp;&emsp;&emsp;novoConteudo{':'} '',<br />
+						&emsp;&emsp;{'}'})<br />
+						&emsp;&emsp;alert('Transação Rejeitada!')<br />
+						&emsp;&emsp;{'}'}<br />
+						&emsp;{'}'}<br />
+						<br />
+						&emsp;buscarTarefas = async (contrato) => {'{'}<br />
+						&emsp;/* Como buscar tarefas que estão nos contratos não alterar o estado do mesmo,<br />
+						&emsp;* então é usado a função 'call' */<br />
+						&emsp;&emsp;const contagemDeTarefas = await contrato.methods.contagemDeTarefas().call()<br />
+						&emsp;&emsp;const tarefas = []<br />
+						&emsp;&emsp;for (let i = 1;i {'<='} contagemDeTarefas ; i++) {'{'}<br />
+						&emsp;&emsp;&emsp;tarefas.push(await contrato.methods.tarefas(i).call())<br />
+						&emsp;&emsp;{'}'}<br />
+						&emsp;&emsp;return tarefas	<br />
+						&emsp;{'}'}<br />
+						<br />
+						&emsp;alternarCompletada = async (id) => {'{'}<br />
+						&emsp;&emsp;const {'{'}<br />
+						&emsp;&emsp;&emsp;contrato,<br />
+						&emsp;&emsp;&emsp;conta,<br />
+						&emsp;&emsp;{'}'} = this.state<br />
+						&emsp;&emsp;try{'{'}<br />
+						&emsp;&emsp;&emsp;this.setState({'{'}carregando{':'} true{'}'})<br />
+						&emsp;&emsp;&emsp;/* A mesma forma de uso como o método 'criarTarefa' */<br />
+						&emsp;&emsp;&emsp;await contrato.methods.alternarCompletada(id).send({'{'}from{':'} conta{'}'})<br />
+						&emsp;&emsp;&emsp;const tarefas = await this.buscarTarefas(contrato)<br />
+						&emsp;&emsp;&emsp;this.setState({'{'}<br />
+						&emsp;&emsp;&emsp;&emsp;tarefas,<br />
+						&emsp;&emsp;&emsp;&emsp;carregando{':'} false,<br />
+						&emsp;&emsp;&emsp;{'}'})<br />
+						&emsp;&emsp;{'}'} catch (error) {'{'}<br />
+						&emsp;&emsp;&emsp;this.setState({'{'}<br />
+						&emsp;&emsp;&emsp;&emsp;carregando{':'} false,<br />
+						&emsp;&emsp;&emsp;{'}'})<br />
+						&emsp;&emsp;&emsp;alert('Transação Rejeitada!')<br />
+						&emsp;&emsp;{'}'}<br />
+						&emsp;{'}'}<br />
+						<br />
+						/* Função que informa ao React o que criar usando JSX, que facilita a criação<br />
+						* de componentes que é justamente o uso de tags informa ao tradutor Babel para<br />
+			* gerar um código Javascript ao executar a classe */<br />
+			&emsp;render(){'{'}<br />
+			&emsp;&emsp;const {'{'}<br />
+				&emsp;&emsp;carregando,<br />
+				&emsp;&emsp;tarefas,<br />
+				&emsp;&emsp;novoConteudo,<br />
+				&emsp;&emsp;contrato,<br />
+				&emsp;{'}'} = this.state<br />
+				&emsp;return (<br />
+					&emsp;&emsp;{'<Container'}<br />
+					&emsp;&emsp;&emsp;style={'{{'}<br />
+					&emsp;&emsp;&emsp;textAlign{':'} 'center',<br />
+					&emsp;&emsp;&emsp;borderWidth{':'} '.2rem .2rem 0',<br />
+					&emsp;&emsp;&emsp;borderRadius{':'} '8px 8px 0 0',<br />
+					&emsp;&emsp;&emsp;sition{':'} 'relative',<br />
+					&emsp;&emsp;&emsp;padding{':'} '1rem',<br />
+					&emsp;&emsp;&emsp;border{':'} '.2rem solid #ececec',<br />
+					&emsp;&emsp;&emsp;color{':'} '#212529',<br />
+					&emsp;&emsp;&emsp;marginTop{':'} 20,<br />
+					&emsp;&emsp;{'}}'}><br />
+					&emsp;&emsp;&emsp;{'<h1>Lista de Tarefas na Blockchain</h1>'}<br />
+					&emsp;&emsp;&emsp;{'{'}<br />
+					&emsp;&emsp;&emsp;&emsp;contrato && <br />
+					&emsp;&emsp;&emsp;&emsp;!carregando && <br />
+					&emsp;&emsp;&emsp;&emsp;{'<Form>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;{'<Form.Group>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<Form.Label>Adicionar Nova Tarefa</Form.Label>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<InputGroup className="mb-3">'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<FormControl'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;placeholder="Novo Conteúdo"<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;id='novoConteudo'<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;name='novoConteudo'<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;value={'{'}novoConteudo{'}'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;onChange={'{'}this.alterarCampo{'}'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;/><br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<InputGroup.Append>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<Button '}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;onClick={'{'}this.criarTarefa{'}'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'variant="outline-secondary">'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Criar nova Tarefa<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'</Button>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'</InputGroup.Append>'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;{'</InputGroup>'}<br />
+					&emsp;&emsp;&emsp;&emsp;{'</Form.Group>'}<br />
+					&emsp;&emsp;&emsp;{'</Form>'}<br />
+					&emsp;&emsp;{'}'}<br />
+					&emsp;&emsp;{'{'}<br />
+					&emsp;&emsp;&emsp;carregando &&<br />
+					&emsp;&emsp;&emsp;{'<h2>Carregando...</h2>'}<br />
+					&emsp;&emsp;{'}'}<br />
+					&emsp;&emsp;{'{'}<br />
+					&emsp;&emsp;&emsp;!carregando &&<br />
+					&emsp;&emsp;&emsp;tarefas &&<br />
+					&emsp;&emsp;&emsp;{'<Table striped bordered hover>'}<br />
+					&emsp;&emsp;&emsp;&emsp;{'<tbody>'}<br />
+					&emsp;&emsp;&emsp;&emsp;{'{'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;tarefas.map(tarefa => {'{'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'return <tr key=tarefa.id>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<td>tarefa.conteudo</td>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<td>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'<input'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;type='checkbox'<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;defaultChecked={'{'}tarefa.completada{'}'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;onClick={'{'}() => this.alternarCompletada(parseInt(tarefa.id)){'}'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'/>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'</td>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'</tr>'}<br />
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{'}'})<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;{'}'}<br />
+					&emsp;&emsp;&emsp;&emsp;&emsp;{'</tbody>'}<br />
+					&emsp;&emsp;&emsp;&emsp;{'</Table>'}<br />
+					&emsp;&emsp;&emsp;{'}'}<br />
+					&emsp;&emsp;&emsp;{'</Container>'}<br />
+				&emsp;&emsp;);<br />
+				&emsp;{'}'}<br />
+				{'}'}<br />
+				<br />
+				export default App;<br />
 					</Alert>
+					
 					<p>
 						Parabéns já conseguimos lista dados direto do nossa Blockchain.
-						Vamos entender o que criamos.
 					</p>
-					<ul>
-						<li>Estamos usando a biblioteca <b>React</b> para gera a interface baseda em componete com estados, que controla a renderização dos mesmos. 
-						Para saber mais <a href='https://pt-br.reactjs.org/' target='_blanck'>clique aqui</a></li>
-						<li>Importamos a biblioteca <b>Web3</b> que nos permite acessar a rede Blockchain usando javascript. 
-						Para saber mais <a href='https://web3js.readthedocs.io/en/v1.2.6/' target='_blanck'>clique aqui</a></li>
-						<li>Utilzamos ES 6 e 7 nesse tutorial, que pode ser considerado java script além do basico com incluindo:</li>
-						<ul>
-						<li>declarar variável com 'let' - a variável só é visível dentro do bloco de execução</li>
-						<li>declarar constant com 'const' - variável com valor fixo</li>
-						<li>função flecha '() => {}' - forma simplificada de declarar uma função e vincular a classe onde é criada</li>
-						<li>Classes - Declarar classe em JavaScript - quando criada não existia classe apenas funções</li>
-						<li>async await - Tratamento de promessas, requisições assincronas, mais simplificada</li>
-						</ul>
-						<li>Para saber mais <a href='https://www.w3schools.com/js/js_es6.asp' target='_blanck'>clique aqui</a></li>
-						<li>API fetch - fornece uma interfa para busca recursos como arquivos locais ou acessar um sevidor, no nosso caso estamos pegando nosso contrato em formato JSON para podermos usar</li>
-						<li>componentDidMount - É uma função do componente App que e chamada quando o componente é montado pelo React</li>
-						<li>thi.setState() - Essa função altera o estado do nosso compoenete e quando o estado muda o React a função render é chamada novamente e altera na tela os dados alterados</li>
-						<li>{'{'} carregando, tarefas, {'}'} = this.state - Desescontrução de objetos uma forma mais fácil de por os dados do objeto direto numa variável</li>
-						<li>tarefas.map - Função declarativa que recebe uma função e percorre a lista de tarefas e retorna o resultado dessa função no caso um componente</li>
-					</ul>
 					<p>
 						Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Ether</b> e que os contratos são imutaveis entaão caso haja um bug no contrato teremos que subir um novo e gastar mais Ether.
 					</p>
@@ -636,13 +833,14 @@ const Tutorial = (props) => {
 					</Alert>
 					<p>
 						Parabéns. Concluímos nosso tutorial, criamos uma aplicação blockchain completa alimentada por Smart Contract da Ethereum! 
-						Você pode baixar o projeto completo <a href='https://github.com/harpia-br/tutorial-lista-de-tarefas-blockchain' target='_blanck'>aqui</a>!
+						Você pode baixar o projeto completo <a href='https://github.com/harpia-br/tutorial-lista-de-tarefas' target='_blanck'>aqui</a>!
 					</p>
 				</div>
 
 			</div>
 		</Container>
 		</>
+}
 }
 
 const MinhaChamada = () => {
