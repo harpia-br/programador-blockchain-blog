@@ -16,6 +16,7 @@ import {
 	withRouter,
 	Link,
 } from 'react-router-dom';
+import Highlight from 'react-highlight'
 
 function App() {
 	return (
@@ -132,6 +133,7 @@ class Tutorial extends React.Component {
 							<li><a href='#tutorialContratoInteligente'>Contrato Inteligente</a></li>
 							<li><a href='#tutorialAplicacaoWebComReact'>Aplicação Web com React</a></li>
 							<li><a href='#tutorialTestandoOContrato'>Testando o Contrato</a></li>
+							<li><a href='#tutorialConsideracoesFinaos'>Considerações Finais</a></li>
 						</ul>
 					</ul>
 				</div>
@@ -342,7 +344,7 @@ class Tutorial extends React.Component {
 						{'}'}
 					</Alert>
 					<p>
-						Agora vamos criar o código de migração do contrato para a rede, apague o arquivo na pasta migrations e crie o seguinte:
+						Agora vamos criar o código de migração do contrato para a rede, crie o seguinte arquivo:
 					</p>
 					<Alert variant='secondary'>
 						$ sudo touch migrations/2_implantar_contrato.js
@@ -366,7 +368,7 @@ class Tutorial extends React.Component {
 						$ sudo truffle migrate
 					</Alert>
 					<p>
-						Agora nos implantamos com sucesso o smadt contract para nossa rede blockchain pessoal. Agora vamos acessar o termina do truffle e ver algumas informações do nosso contrato.
+						Agora nos implantamos com sucesso o smart contract para nossa rede blockchain pessoal. Agora vamos acessar o termina do truffle e ver algumas informações do nosso contrato.
 					</p>
 					<Alert variant='secondary'>
 						$ sudo truffle console<br />
@@ -501,7 +503,7 @@ class Tutorial extends React.Component {
 						Agora abra o arquivo 'src/App.js', apague o conteudo e adicione o seguinte:
 					</p>
 
-					<Alert variant='secondary'>
+					<Highlight language='javascript'> 
 						/* Biblioteca para criar nossos componentes */<br />
 						import React from 'react';<br />
 						/* Biblioteca para acessar contratos na rede Ethereum */<br />
@@ -752,13 +754,13 @@ class Tutorial extends React.Component {
 				{'}'}<br />
 				<br />
 				export default App;<br />
-					</Alert>
+				</Highlight>
 					
 					<p>
-						Parabéns já conseguimos lista dados direto do nossa Blockchain.
+						Parabéns já conseguimos listar, cadastrar e completar tarefas direto do nossa Blockchain, quando tentamos criar ou completaruma tarefa um notificação do MetaMask vai aparecer pegruntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
 					</p>
 					<p>
-						Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Ether</b> e que os contratos são imutaveis entaão caso haja um bug no contrato teremos que subir um novo e gastar mais Ether.
+						Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas', vamos criar um teste para validar nosso contrato.
 					</p>
 				</div>
 				<div id='tutorialTestandoOContrato'>
@@ -834,6 +836,14 @@ class Tutorial extends React.Component {
 					<p>
 						Parabéns. Concluímos nosso tutorial, criamos uma aplicação blockchain completa alimentada por Smart Contract da Ethereum! 
 						Você pode baixar o projeto completo <a href='https://github.com/harpia-br/tutorial-lista-de-tarefas' target='_blanck'>aqui</a>!
+					</p>
+				</div>
+				<div id='tutorialConsideracoesFinaos'>
+					<h3>Considerações Finais</h3>
+					<p>
+						Nesse tutorial vemos o básico de transações com smart contrato mas se em vez de uma lista de tarefas fosse uma lista de produtos a venda, 
+						usado Ether, nosso próximo tutorial faremos uma loja com smart contratos, mas a lógica é a mesma o que mudará será nosso contrato.
+						Até a Próxima!
 					</p>
 				</div>
 
