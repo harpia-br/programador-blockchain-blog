@@ -21,7 +21,7 @@ class Conteudo extends React.Component {
 			{
 				tutoriais &&
 					tutoriais.map(item => {
-						return <div id={item.id} style={{ marginBottom: 30, }}>
+						return <div key={item.id} style={{ marginBottom: 30, }}>
 							<h2>
 								<Link to={`/${item.url}`}>
 									{item.titulo}
