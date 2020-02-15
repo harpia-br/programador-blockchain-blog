@@ -13,22 +13,31 @@ import {
 } from 'react-router-dom';
 import Conteudo from './components/Conteudo'
 import Tutorial from './components/Tutorial'
+import { connect, } from 'react-redux'
 
-function App() {
-	return (
-		<div>
-			<Topo />
-			<Switch>
-				<Route exact path='/' component={Conteudo} />
-				<Route exact path={`/:tutorial`} component={Tutorial} />
-				<Route component={Pagina404} />
-			</Switch>
-			<Rodape />
-		</div>
-	);
+class App extends React.Component {
+	render (){
+		return (
+			<div>
+				<Topo />
+				<Switch>
+					<Route exact path='/' component={Conteudo} />
+					<Route exact path={`/:tutorial`} component={Tutorial} />
+					<Route component={Pagina404} />
+				</Switch>
+				<Rodape />
+			</div>
+		)
+	}
 }
 
-export default withRouter(App);
+const mapStateToProps = ({tutoriais}) => {
+	return {
+		tutoriais,
+	}
+}
+
+export default withRouter(connect(mapStateToProps, null)(App))
 
 const Topo = () => {
 	return 	<Navbar bg='dark' variant='dark' expand="lg">
