@@ -3,7 +3,6 @@ import {
 	Image,
 	Alert,
 } from 'react-bootstrap';
-import Highlight from 'react-highlight'
 import { combineReducers } from 'redux'
 import {
 	PEGAR_TUTORIAIS, 
@@ -175,9 +174,9 @@ const estadoTutoriais = [
 					$ sudo truffle console<br />
 					contrato = await ListaDeTarefas.deployed()<br />
 					contrato.address<br />
-					// => '0xABC123...'<br />
+					{"// => '0xABC123...'"}<br />
 					contagemDeTarefas = await contrato.contagemDeTarefas()<br />
-					// => 0
+					{'// => 0'}
 				</Alert>
 				<p>
 					Parabéns! Nos terminamos a primeira parte do nosso tutorial!
@@ -526,9 +525,9 @@ const estadoTutoriais = [
 					$ sudo truffle console<br />
 					contrato = await MercadoAberto.deployed()<br />
 					contrato.address<br />
-					// => '0xABC123...'<br />
+					{"// => '0xABC123...'"}<br />
 					contagemDeProdutos = await contrato.contagemDeProdutos()<br />
-					// => 0
+					{'// => 0'}
 				</Alert>
 				<p>
 					Parabéns! Nos terminamos a primeira parte do nosso tutorial!

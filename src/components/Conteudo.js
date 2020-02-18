@@ -11,42 +11,39 @@ import {
 import { connect, } from 'react-redux'
 import MinhaChamada from './MinhaChamada'
 
-class Conteudo extends React.Component {
-
-	render (){
-		const {
-			tutoriais,
-		} = this.props
-		return <Container style={{ paddingTop: 20, marginBottom: 100, }}>
-			{
-				tutoriais &&
-					tutoriais.map(item => {
-						return <div key={item.id} style={{ marginBottom: 30, }}>
-							<h2>
+function Conteudo (props) {
+	const {
+		tutoriais,
+	} = props
+	return <Container style={{ paddingTop: 20, marginBottom: 100, }}>
+		{
+			tutoriais &&
+				tutoriais.map(item => {
+					return <div key={item.id} style={{ marginBottom: 30, }}>
+						<h2>
+							<Link to={`/${item.url}`}>
+								{item.titulo}
+							</Link>
+						</h2>
+						<Row>
+							<Col sm={12} xs={12} md={12} lg={6}>
+								<Image src={item.imagem} rounded fluid/>
+							</Col>
+							<Col sm={12} xs={12} md={12} lg={6} style={{ fontSize: 18, fontFamily: 'Verdana', }}>
+								<MinhaChamada />
+								&nbsp;
+								{item.chamada}
+								<br />
+								<br />
 								<Link to={`/${item.url}`}>
-									{item.titulo}
+									{item.rodape}
 								</Link>
-							</h2>
-							<Row>
-								<Col sm={12} xs={12} md={12} lg={6}>
-									<Image src={item.imagem} rounded fluid/>
-								</Col>
-								<Col sm={12} xs={12} md={12} lg={6} style={{ fontSize: 18, fontFamily: 'Verdana', }}>
-									<MinhaChamada />
-									&nbsp;
-									{item.chamada}
-									<br />
-									<br />
-									<Link to={`/${item.url}`}>
-										{item.rodape}
-									</Link>
-								</Col>
-							</Row>
-						</div>
-					})
-			}
-		</Container>
-	}
+							</Col>
+						</Row>
+					</div>
+				})
+		}
+	</Container>
 }
 
 const mapStateToProps = ({tutoriais}) => {
