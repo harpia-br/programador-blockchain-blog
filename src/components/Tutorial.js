@@ -7,72 +7,70 @@ import {
 import { connect, } from 'react-redux'
 import MinhaChamada from './MinhaChamada'
 
-class Tutorial extends React.Component {
+function Tutorial (props) {
 
-	render () {
-		const {
-			tutorial,
-		} = this.props
+	const {
+		tutorial,
+	} = props
 
-		return <>
-			<Container
-				style={{
-					maxWidth: '850px',
-					minHeight: '800px',
-					paddingTop: '20px',
-					paddingBottom: '20px',
-				}}
-				className='pl-4 pr-4'>
-				<h1 style={{ fontFamily: 'Roboto Condensed, sans-serif', }}>
-					{tutorial.h1}
-				</h1>
-				<p className='text-muted'>
-					Por Léo Pereira - {tutorial.data}
-				</p>
-				<div className='descricao'>
-					<MinhaChamada />
-					<br />
-					<br />
-					{tutorial.chamada}
-					<br />
-					<br />
-					<Image src={tutorial.imagem} rounded fluid/>
+	return <>
+		<Container
+			style={{
+				maxWidth: '850px',
+				minHeight: '800px',
+				paddingTop: '20px',
+				paddingBottom: '20px',
+			}}
+			className='pl-4 pr-4'>
+			<h1 style={{ fontFamily: 'Roboto Condensed, sans-serif', }}>
+				{tutorial.h1}
+			</h1>
+			<p className='text-muted'>
+				Por Léo Pereira - {tutorial.data}
+			</p>
+			<div className='descricao'>
+				<MinhaChamada />
+				<br />
+				<br />
+				{tutorial.chamada}
+				<br />
+				<br />
+				<Image src={tutorial.imagem} rounded fluid/>
 
-					<div id='introducao'>
-						Se você já conhece o básico, pode avançar e começar a codificar o aplicativo agora!
-					</div>
+				<div id='introducao'>
+					Se você já conhece o básico, pode avançar e começar a codificar o aplicativo agora!
+				</div>
 
-					<div id='tabelaDeConteudos'>
-						<h2>Tabela de Conteúdo</h2>
+				<div id='tabelaDeConteudos'>
+					<h2>Tabela de Conteúdo</h2>
+					<ul>
+						<li>Introdução</li>
 						<ul>
-							<li>Introdução</li>
-							<ul>
-								<li><a href='#tutorialOQueNosVamosContruir'>O que nos vamos contruir?</a></li>
-								<li><a href='#tutorialOQueEBlockchain'>O que é Blockchain?</a></li>
-								<li><a href='#tutorialOQueEUmSmartContract'>O que é um Smart Contract?</a></li>
-								<li><a href='#tutorialComoNossoBlockchainVaiFuncionar'>Como nosso Blockchain vai funcionar?</a></li>
-							</ul>
-							<li>Passo a Passo</li>
-							<ul>
-								{
-									tutorial.listaDeConteudo.map(item => {
-										return <li key={item.ancora}>
-											<a href={`#${item.ancora}`}>{item.titulo}</a>
-										</li>
-									})
-								}
-							</ul>
+							<li><a href='#tutorialOQueNosVamosContruir'>O que nos vamos contruir?</a></li>
+							<li><a href='#tutorialOQueEBlockchain'>O que é Blockchain?</a></li>
+							<li><a href='#tutorialOQueEUmSmartContract'>O que é um Smart Contract?</a></li>
+							<li><a href='#tutorialComoNossoBlockchainVaiFuncionar'>Como nosso Blockchain vai funcionar?</a></li>
 						</ul>
-					</div>
-					{tutorial.oQueVamosConstruir}
-					<Teoria />
-					{tutorial.comoNossaBlockchainVaiFuncionar}
-					<DependenciasEthereum />
-					{tutorial.conteudo}
+						<li>Passo a Passo</li>
+						<ul>
+							{
+								tutorial.listaDeConteudo.map(item => {
+									return <li key={item.ancora}>
+										<a href={`#${item.ancora}`}>{item.titulo}</a>
+									</li>
+								})
+							}
+						</ul>
+					</ul>
+				</div>
+				{tutorial.oQueVamosConstruir}
+				<Teoria />
+				{tutorial.comoNossaBlockchainVaiFuncionar}
+				<DependenciasEthereum />
+				{tutorial.conteudo}
 			</div>
 		</Container>
-		</>
-	}
+	</>
 }
 
 const mapStateToProps = ({tutoriais}, props) => {
