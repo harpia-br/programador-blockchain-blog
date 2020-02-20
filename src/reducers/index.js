@@ -155,8 +155,8 @@ const estadoTutoriais = [
 				<Alert variant='secondary'>
 					const ListaDeTarefas = artifacts.require('./ListaDeTarefas.sol'); <br/>
 					<br />
-					module.exports = function(implatador) {'{'}<br />
-					&emsp;implatador.deploy(ListaDeTarefas);<br />
+					module.exports = function(implantador) {'{'}<br />
+					&emsp;implantador.deploy(ListaDeTarefas);<br />
 					{'}'};
 				</Alert>
 				<p>
@@ -506,8 +506,8 @@ const estadoTutoriais = [
 				<Alert variant='secondary'>
 					const MercadoAberto = artifacts.require('./MercadoAberto.sol'); <br/>
 					<br />
-					module.exports = function(implatador) {'{'}<br />
-					&emsp;implatador.deploy(MercadoAberto);<br />
+					module.exports = function(implantador) {'{'}<br />
+					&emsp;implantador.deploy(MercadoAberto);<br />
 					{'}'};
 				</Alert>
 				<p>
