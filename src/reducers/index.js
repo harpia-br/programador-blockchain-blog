@@ -651,10 +651,6 @@ const estadoTutoriais = [
 				titulo: 'Aplicação Web com React'
 			},
 			{
-				ancora: 'tutorialTestandoOContrato',
-				titulo: 'Testando o Contrato'
-			},
-			{
 				ancora: 'tutorialERC20',
 				titulo: 'ERC20'
 			},
