@@ -32,7 +32,7 @@ function Tutorial (props) {
 	useEffect(() => {
 		document.location.href='#app'
 		setUmaVez(true)
-	}, umaVez)
+	}, [umaVez])
 
 	return <React.Fragment>
 		<Container
