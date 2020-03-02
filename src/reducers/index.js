@@ -628,11 +628,11 @@ const estadoTutoriais = [
 		id: 3,
 		data: '24 de Fevereiro, 2020',
 		url: 'construaSuaPropriaMoeda',
-		titulo: 'Construa Sua Própria Moeda',
+		titulo: 'Construa Sua Própria Moeda Token',
 		imagem: 'imagens/erc20.png',
-		chamada: <span>Estou aqui para te mostrar como criar sua pŕopria moeda digital e como vende-la usando <b>React</b>, <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. Você não precisa saber nada sobre blockchain para seguir. Eu vou ensinar do zero. Use esse guia passo a passo com exemplo de códigos e instruções escritas para começar sua jornada como desenvolvedor Blockchain!</span>,
-		rodape: 'Crie sua Moeda agora! >>',
-		h1: 'Como Construir sua própria Moeda com React, Ethereum, Web3.js e Solidity Smart Contracts',
+		chamada: <span>Estou aqui para te mostrar como criar sua própria moeda token e como vende-la usando <b>React</b>, <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. Você não precisa saber nada sobre blockchain para seguir. Eu vou ensinar do zero. Use esse guia passo a passo com exemplo de códigos e instruções escritas para começar sua jornada como desenvolvedor Blockchain!</span>,
+		rodape: 'Crie sua Moeda Token agora! >>',
+		h1: 'Como Construir sua própria Moeda Token com React, Ethereum, Web3.js e Solidity Smart Contracts',
 		listaDeConteudo: [
 			{
 				ancora: 'tutorialInstalandoDependencias',
@@ -655,10 +655,10 @@ const estadoTutoriais = [
 				titulo: 'ERC20'
 			},
 		],
-		oQueVamosConstruir: <div id='conteudoOQueNosVamosContruir'>
+		oQueVamosConstruir: <div id='tutorialOQueNosVamosContruir'>
 			<h3>O que vamos construir?</h3>
 			<p>
-				Vamos construir dois contratos um para a nossa moeda e uma para que as pessoas possam adquiri-las.
+				Vamos construir dois contratos um para a nossa moeda token e uma para que as pessoas possam adquiri-las.
 			</p>
 		</div>,
 		comoNossaBlockchainVaiFuncionar: <div id='tutorialComoNossoBlockchainVaiFuncionar'>

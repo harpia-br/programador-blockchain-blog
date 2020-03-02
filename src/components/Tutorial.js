@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import { 
 	Container,
 	Image,
@@ -6,14 +6,35 @@ import {
 } from 'react-bootstrap';
 import { connect, } from 'react-redux'
 import MinhaChamada from './MinhaChamada'
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
+
+const useStyles = makeStyles(theme => ({
+	extendedIcon: {
+		marginRight: theme.spacing(1),
+	},
+	fab: {
+		position: 'fixed',
+		margin: 16,
+		right: 0,
+		bottom: 0,
+	},
+}));
 
 function Tutorial (props) {
 
-	const {
-		tutorial,
-	} = props
+	const { tutorial, } = props
+	const classes = useStyles();
 
-	return <>
+	const [umaVez, setUmaVez] = useState(false)
+
+	useEffect(() => {
+		document.location.href='#app'
+		setUmaVez(true)
+	}, umaVez)
+
+	return <React.Fragment>
 		<Container
 			style={{
 				maxWidth: '850px',
@@ -46,7 +67,7 @@ function Tutorial (props) {
 					<ul>
 						<li>Introdução</li>
 						<ul>
-							<li><a href='#tutorialOQueNosVamosContruir'>O que nos vamos contruir?</a></li>
+							<li><a href='#tutorialOQueNosVamosContruir'>O que nos vamos construir?</a></li>
 							<li><a href='#tutorialOQueEBlockchain'>O que é Blockchain?</a></li>
 							<li><a href='#tutorialOQueEUmSmartContract'>O que é um Smart Contract?</a></li>
 							<li><a href='#tutorialComoNossoBlockchainVaiFuncionar'>Como nosso Blockchain vai funcionar?</a></li>
@@ -70,7 +91,14 @@ function Tutorial (props) {
 				{tutorial.conteudo}
 			</div>
 		</Container>
-	</>
+		<Fab
+			className={classes.fab}
+			onClick={() => document.location.href='#app'} 
+			variant="extended">
+			<NavigationIcon className={classes.extendedIcon} />
+			Topo
+		</Fab>
+	</React.Fragment>
 }
 
 const mapStateToProps = ({tutoriais}, props) => {
