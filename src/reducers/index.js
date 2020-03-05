@@ -608,7 +608,7 @@ const estadoTutoriais = [
 					Parabéns já conseguimos listar, cadastrar, comprar ou vender produtos direto do nossa Blockchain, quando tentamos enviar um comando que altere os valores da Blockchain uma notificação do MetaMask vai aparecer perguntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
 				</p>
 				<p>
-					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas', vamos criar um teste para validar nosso contrato.
+					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas'.
 				</p>
 				<p>
 					Cadastre produto com uma conta e importe outra conta para poder comprar, volte a conta de vendendor cancele ou como comprador confirme o recebimento para ver as transações de Ether.
@@ -651,8 +651,8 @@ const estadoTutoriais = [
 				titulo: 'Aplicação Web com React'
 			},
 			{
-				ancora: 'tutorialConsideracoesFinais',
-				titulo: 'Considerações Finais'
+				ancora: 'tutorialERC20',
+				titulo: 'ERC20'
 			},
 		],
 		oQueVamosConstruir: <div id='tutorialOQueNosVamosContruir'>
@@ -911,7 +911,7 @@ const estadoTutoriais = [
 					Import outras contas do Ganache e adquira alguns tokens da nova moeda.
 				</p>
 				<p>
-					Parabéns !! Terminamos nosso tutorial, aprendemos através de contratos criar e transferir um token, nossa moeda, mas apenas o básico, use apenas para aprender a usar os contratos inteligentes.
+					Terminamos nosso tutorial, aprendemos através de contratos criar e transferir um token, nossa moeda, mas apenas o básico, use apenas para aprender a usar os contratos inteligentes.
 				</p>
 			</div>
 			<div id='tutorialERC20'>
@@ -969,8 +969,8 @@ const estadoTutoriais = [
 				titulo: 'Aplicação Web com React'
 			},
 			{
-				ancora: 'tutorialERC20',
-				titulo: 'ERC20'
+				ancora: 'tutorialConsideracoesFinais',
+				titulo: 'Considerações Finais'
 			},
 		],
 		oQueVamosConstruir: <div id='tutorialOQueNosVamosContruir'>
@@ -1177,42 +1177,21 @@ const estadoTutoriais = [
 				<Gist id='29a226256f94ed65c025aba7d6c38641' />
 
 				<p>
-					Parabéns já conseguimos criar uma nova moeda e diponibiliza-la para compra direto do nossa Blockchain, quando tentamos enviar um comando que altere os valores da Blockchain uma notificação do MetaMask vai aparecer perguntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
+					Parabéns criamos  um sitema eleitoral simples, quando tentamos enviar um comando que altere os valores da Blockchain uma notificação do MetaMask vai aparecer perguntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
 				</p>
 				<p>
-					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas', vamos criar um teste para validar nosso contrato.
+					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas'.
 				</p>
 				<p>
-					Import outras contas do Ganache e adquira alguns tokens da nova moeda.
-				</p>
-				<p>
-					Parabéns !! Terminamos nosso tutorial, aprendemos através de contratos criar e transferir um token, nossa moeda, mas apenas o básico, use apenas para aprender a usar os contratos inteligentes.
+					Import outras contas do Ganache e tente votar em algum candidato.
 				</p>
 			</div>
-			<div id='tutorialERC20'>
-				<h3>ERC20</h3>
+			<div id='tutorialConsideracoesFinais'>
+				<h3>Considerações Finais</h3>
 				<p>
-				No começo não existia padrões para criar uma moeda, onde cada contrato era diferente do outro gerando dificuldade de integração com corretoras e provedores de carteiras, que deveriam criar um código personalizado para poder conversam com seu contrato e as pessoas interagirem, com o tempo a comunidade criou padrões para ese contratos chamados de ERC, Ethereum Request for Comments, mais uma numeração, o mais popular hoje com certeza é o <b>ERC20</b>, que define 6 funções obrigatórias e 3 opcionais para implantação do padrão, que são elas:
-				</p>
-				<ul>
-					<li>name</li>
-					<li>symbol</li>
-					<li>decimals</li>
-					<li>totalSupply</li>
-					<li>balanceOf</li>
-					<li>trasnfer</li>
-					<li>transferFrom</li>
-					<li>approve</li>
-					<li>allowance</li>
-				</ul>
-				<p>
-					Mas como dito é apenas um padrão que pode melhorar no site <a href='https://github.com/ethereum/EIPs' target='_blanck'>ERC20</a>, temos a interface para implementação e também o <a href='https://eips.ethereum.org/' target='_blanck'>EIP</a> para as proposta de melhorias da comunidade.
-					Um exemplo de uma contrato com ERC20:
-				</p>
-				<Gist id='764394fe415954f90d13625805e672ba' />
-				<p>
-					Mas sempre mais e mais padrões são criados e melhorados, hoje já exitem milhares de moedas, tokens, que servem para trocas, transferências e posse de partes de alguma empresa por exemplos, como podemos perceber os usos são imensos e com tempo crescerá cadas vez mais e estão aqui para ficar, já que como os contratos uma vez implantado não pode ser mais alterado garatindo segurança para quem o usa.
-					Até a próxima!
+					Você deve ter reparado que qualquer um pode votar e pode-se criar contas infinitas para votar, 
+					para usar em produção faça uma validação de quem pode votar ou não, cadidato que venceue etc, 
+					Até próxima desenvolvedor Blockchain.
 				</p>
 			</div>
 		</>
