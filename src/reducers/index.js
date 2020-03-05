@@ -371,7 +371,7 @@ const estadoTutoriais = [
 		url: 'construaUmMercadoAbertoComContratoInteligentes',
 		titulo: 'Construa um Mercado Aberto com Ethereum',
 		imagem: 'imagens/contratos-inteligentes.jpeg',
-		chamada: <span>Estou aqui para te mostrar como criar uma mercado aberto onde qualquer um pode cadastrar, vender ou comprar produtos com garantia de entrega usando <b>React</b>, <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. Você não precisa saber nada sobre blockchain para seguir. Eu vou ensinar do zero. Use esse guia passo a passo com exemplo de códigos e instruções escritas para começar sua jornada como desenvolvedor Blockchain!</span>,
+		chamada: <span>Estou aqui para te mostrar como criar uma <b>mercado aberto</b> onde qualquer um pode <b>cadastrar, vender ou comprar produtos com garantia de entrega</b>!</span>,
 		rodape: 'Construa seu Mercado Aberto Blockchain agora! >>',
 		h1: 'Como Construir um Mercado Aberto Blockchain com React, Ethereum, Web3.js e Solidity Smart Contracts',
 		listaDeConteudo: [
@@ -608,7 +608,7 @@ const estadoTutoriais = [
 					Parabéns já conseguimos listar, cadastrar, comprar ou vender produtos direto do nossa Blockchain, quando tentamos enviar um comando que altere os valores da Blockchain uma notificação do MetaMask vai aparecer perguntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
 				</p>
 				<p>
-					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas', vamos criar um teste para validar nosso contrato.
+					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas'.
 				</p>
 				<p>
 					Cadastre produto com uma conta e importe outra conta para poder comprar, volte a conta de vendendor cancele ou como comprador confirme o recebimento para ver as transações de Ether.
@@ -630,7 +630,7 @@ const estadoTutoriais = [
 		url: 'construaSuaPropriaMoeda',
 		titulo: 'Construa Sua Própria Moeda Token',
 		imagem: 'imagens/erc20.png',
-		chamada: <span>Estou aqui para te mostrar como criar sua própria moeda token e como vende-la usando <b>React</b>, <b>Ehtereum</b>, <b>Web3.js</b> e <b>Solidity smart contracts</b>. Você não precisa saber nada sobre blockchain para seguir. Eu vou ensinar do zero. Use esse guia passo a passo com exemplo de códigos e instruções escritas para começar sua jornada como desenvolvedor Blockchain!</span>,
+		chamada: <span>Estou aqui para te mostrar como criar <b>sua própria moeda token</b> e como <b>vende-la</b>.</span>,
 		rodape: 'Crie sua Moeda Token agora! >>',
 		h1: 'Como Construir sua própria Moeda Token com React, Ethereum, Web3.js e Solidity Smart Contracts',
 		listaDeConteudo: [
@@ -911,7 +911,7 @@ const estadoTutoriais = [
 					Import outras contas do Ganache e adquira alguns tokens da nova moeda.
 				</p>
 				<p>
-					Parabéns !! Terminamos nosso tutorial, aprendemos através de contratos criar e transferir um token, nossa moeda, mas apenas o básico, use apenas para aprender a usar os contratos inteligentes.
+					Terminamos nosso tutorial, aprendemos através de contratos criar e transferir um token, nossa moeda, mas apenas o básico, use apenas para aprender a usar os contratos inteligentes.
 				</p>
 			</div>
 			<div id='tutorialERC20'>
@@ -942,6 +942,260 @@ const estadoTutoriais = [
 			</div>
 		</>
 	},
+	{
+		id: 4,
+		data: '02 de Março, 2020',
+		url: 'facaSuaEleicao',
+		titulo: 'Faça sua Eleição via Smart Contract',
+		imagem: 'imagens/eleicao.jpg',
+		chamada: <span>Estou aqui para te mostrar como criar um <b>sistema de eleição</b> simples.</span>,
+		rodape: 'Construa seu sistema de eleição! >>',
+		h1: 'Como fazer um processo de eleição com React, Ethereum, Web3.js e Solidity Smart Contracts',
+		listaDeConteudo: [
+			{
+				ancora: 'tutorialInstalandoDependencias',
+				titulo: 'Instalando Dependências'
+			},
+			{
+				ancora: 'tutorialConfigurandoOProjeto',
+				titulo: 'Configurando o Projeto'
+			},
+			{
+				ancora: 'tutorialContratoInteligente',
+				titulo: 'Contrato Inteligente'
+			},
+			{
+				ancora: 'tutorialAplicacaoWebComReact',
+				titulo: 'Aplicação Web com React'
+			},
+			{
+				ancora: 'tutorialConsideracoesFinais',
+				titulo: 'Considerações Finais'
+			},
+		],
+		oQueVamosConstruir: <div id='tutorialOQueNosVamosContruir'>
+			<h3>O que vamos construir?</h3>
+			<p>
+				Vamos construir um contrato paca guardar os dados dos candidatos, votos e eleitores que já votaram.
+			</p>
+		</div>,
+		comoNossaBlockchainVaiFuncionar: <div id='tutorialComoNossoBlockchainVaiFuncionar'>
+			<h3>Como nosso Blockchain vai funcionar?</h3>
+			<p>
+				Nos vamos criar uma <b>aplicação web com React</b> para votar diretamente na Blockchain. 
+				Nos vamos usar a <b>Ethereum Blockchain</b> nesse tutorial, criaremos um <b>smart contract em Solidity</b> que terá as informações dos candidatos, votos e os eleitores que já votaram.
+				Nos vamos também nos conectar a rede com nossa conta pessoal com a carteira (wallet em inglês) Ethereum para interagir com nossos contratos.
+			</p>
+		</div>,
+		conteudo: <>
+			<div id='tutorialConfigurandoOProjeto'>
+				<h3>Configurando o Projeto</h3>
+				<p>
+					Vamos criar um projeto com a Biblioteca React. Primeiro vamos instalar e depois criar o projeto, entre no terminal:
+				</p>
+				<Alert variant='secondary'>
+					<p>
+						$ sudo npm install create-react-app -g
+					</p>
+					<p>
+						$ sudo create-react-app eleicao
+					</p>
+					<p>
+						$ cd eleicao
+					</p>
+				</Alert>
+				<br />
+				<p>
+					Agora vamos inicializar o Truffle, entro no terminal:
+				</p>
+				<Alert variant='secondary'>
+					$ sudo truffle init
+				</Alert>
+				<p>
+					Vamos começar a desenvolver o smart contract que vai administrar nossa eleição. Crie um arquivo novo com extensão 'sol':
+				</p>
+				<Alert variant='secondary'>
+					$ sudo touch src/contracts/Eleicao.sol
+				</Alert>
+				<p>
+					Abra o arquivo com seu editor favorito e vamos iniciar com a versão e declaração do contrato
+				</p>
+				<Alert variant='secondary'>
+					pragma solidity ^0.5.0;
+					<br />
+					<br />
+					contract Eleicao {'{'}
+					<br />
+					<br />
+					{'}'}
+				</Alert>
+				<p>
+					Nos criamos um smart contract chamado <b>Eleicao</b> seguido pelas 'chaves'.
+					Nos vamos contabilizar os produtos através de uma variável de estado, qualquer dado nessa variável será escrita no armazenamento da Blockchain.
+				</p>
+				<p>
+					Agora vamos compliar o smart contract, entre no terminal:
+				</p>
+				<Alert variant='secondary'>
+					$ sudo truffle compile
+				</Alert>
+				<p>
+					Parabéns! Você escreveu seu primeiro <b>smart contract Ethereum</b>. Um novo arquivo foi gerado 'src/abis/Eleicao.json'. 
+					Esse arquivo smart contract ABI, 'Abstract Binary Interface'. Esse arquivo contém a versão compilado do bytecode para rodar na Máquina Virtual Ethereum e a representação JSON para a aplicação web possa acessar como o JavaScript.
+				</p>
+				<p>
+					Agora vamos configurar o projeto para acessar nossa rede pessoal e criar um arquivo de migração do nosso código para a rede Blockchain.
+				</p>
+				<p>
+					Acesse o arquivo 'truffle-config.js' e altere o código assim:
+				</p>
+				<Alert variant='secondary'>
+					module.exports = {'{'} <br />
+					&emsp;nertworks: {'{'} <br />
+					&emsp;&emsp;development: {'{'} <br />
+					&emsp;&emsp;&emsp;host: '127.0.0.1', <br />
+					&emsp;&emsp;&emsp;port: 7545, <br />
+					&emsp;&emsp;&emsp;network_id: '*', <br />
+					&emsp;&emsp;{'}'} <br />
+					&emsp;{'}'}, <br />
+					contracts_build_directory: './src/abis/',<br />
+					solc: {'{'} <br />
+					&emsp;optmizer: {'{'} <br />
+					&emsp;&emsp;&emsp;enabled: true, <br />
+					&emsp;&emsp;&emsp;runs: 200, <br />
+					&emsp;&emsp;{'}'} <br />
+					&emsp;{'}'} <br />
+					{'}'}
+				</Alert>
+				<p>
+					Agora vamos criar o código de migração do contrato para a rede, crie o seguinte arquivo:
+				</p>
+				<Alert variant='secondary'>
+					$ sudo touch migrations/2_implantar_contrato.js
+				</Alert>
+				<p>
+					Note que os arquivos dentro da pasta migrations são ordenado para ordem de execução, vamos por nesse aquivo nesse código:
+				</p>
+				<Alert variant='secondary'>
+					const MinhaMoeda = artifacts.require('./Eleicao.sol'); <br/>
+					<br />
+					module.exports = function(implantador) {'{'}<br />
+					&emsp;implantador.deploy(Eleicao);<br />
+					{'}'};
+				</Alert>
+				<p>
+					Primeiro, nos vamos pegar o contrato e colocamos na constante 'Eleicao'.
+					Depois nos adicionamos a manifestação para o truffle implantar na rede blockchain.
+					Agora vamos migrar, entre no terminal:
+				</p>
+				<Alert variant='secondary'>
+					$ sudo truffle migrate
+				</Alert>
+			<p>
+				Agora nos implantamos com sucesso o smart contract para nossa rede blockchain pessoal. Agora vamos acessar o termina do truffle e ver algumas informações do nosso contrato.
+			</p>
+				<Alert variant='secondary'>
+					$ sudo truffle console<br />
+					contrato = await MinhaMoeda.deployed()<br />
+					contrato.address<br />
+					{"// => '0xABC123...'"}<br />
+				</Alert>
+				<p>
+					Parabéns! Nos terminamos a primeira parte do nosso tutorial!
+				</p>
+				<p>
+					Nos criamos até agora:
+				</p>
+				<ul>
+					<li>Configuramos sua maquina para desenvolvimento Blockchain</li>
+					<li>Criamos um novo projeto Truffle</li>
+					<li>Criamos nosso primeiro smart contract</li>
+					<li>Interagimos com nosso novo contrato na rede Blockchain</li>
+				</ul>
+			</div>
+			<div id='tutorialContratoInteligente'>
+				<h3>Contrato Inteligente</h3>
+				<p>
+					Vamos agora atualizar nosso contrato para controlar nossa aplicação, vamos alterar nosso contrato assim:
+				</p>
+				<Gist id='2c1ca7d15a64df4660ec752105d8e52a' />
+				<p>
+					Agora vamos implantar esse novo contrato. Nos vamos implantar uma nova cópia nosso código.
+					Lembre-se smart contract são imutáveis. Não podem ser alterados.
+					Nos podemos sempre criar um novo contrato. Truffle facilita nosso processo nisso.
+					Entre no terminal:
+				</p>
+				<Alert vaiant='secondary'>
+					$ sudo truffle compile<br />
+					$ sudo truffle migrate --reset
+				</Alert>
+				<p>
+					E pronto novo contrato no ar. Agora vamos acessar o terminal do Truffle e ver na Blockchain.
+				</p>
+				<Alert variant='secondary'>
+					$ sudo truffle console<br />
+					contrato = await Eleicao.deployed()<br />
+					contrato.address<br />
+				</Alert>
+				<p>
+					Pronto terminamos nosso contrato agora vamos para aplicação web com React.
+				</p>
+			</div>
+			<div id='tutorialAplicacaoWebComReact'>
+				<h3>Aplicação Web com React</h3>
+				<p>
+					Ao criarmos a aplicação com 'create-react-app', ele já gera tudo necessário para desenvolvermos uma aplicação web.
+					Abra um novo terminal, vamos instalar a bliblioteca para o JavaScript poder acessar a blockchain e inicializar o servidor de desenvolvimento, entre no terminal:
+				</p>
+				<Alert variant='secondary'>
+					<p>
+						$ sudo npm install web3 react-bootstrap bootstrap --save
+					</p>
+					<p>
+						$ sudo npm start
+					</p>
+				</Alert>
+				<p>
+					No terminal vai mostra como acessar, abra o navegador e acesse 'localhost:3000', pronto nosso servidor já esta funcionando.
+					Vamos configurar nossa conta e acessar nossa rede Blockchain com o <b>MetaMask</b>.
+					Acesse o <b>Ganache</b>, acesse a aba 'accounts' e clique no icone de chave ao lado direitor de alguma das contas e copie o código da chave privada, como na imagem:
+				</p>
+				<Image src='imagens/5-ganache.png' rounded fluid/>
+				<br />
+				<br />
+				<Image src='imagens/6-ganache.png' rounded fluid/>
+				<br />
+				<br />
+				<p>
+					Clique no icone de raposa no canto superior direito do seu navegador google.
+					Clique no icone da conta e depois 'importar conta' depois informe a chave privada copiada.
+					Agorava vamos acessar a nossa Blockchain com essa conta, clique em redes depois 'RPC Personalizada', em nome coloque 'blockchain ganache' e em Nova URL RPC
+					coloque 'http://127.0.0.1:7545', salve e pronto deve aparecer uma quantidade de Ether.
+					Agora abra o arquivo 'src/App.js', apague o conteudo e adicione o seguinte:
+				</p>
+
+				<Gist id='29a226256f94ed65c025aba7d6c38641' />
+
+				<p>
+					Parabéns criamos  um sitema eleitoral simples, quando tentamos enviar um comando que altere os valores da Blockchain uma notificação do MetaMask vai aparecer perguntando se concordamos com a transação assim como o consumo de 'Gas', uma fração de Ether para pagar os 'mineradores'.
+				</p>
+				<p>
+					Algumas ponderações, já devem ter reparado que todas vez que migramos um contrato gastamos <b>Gas</b> e que os contratos são imutaveis então caso haja um erro no contrato teremos que subir um novo e gastar mais 'Gas'.
+				</p>
+				<p>
+					Import outras contas do Ganache e tente votar em algum candidato.
+				</p>
+			</div>
+			<div id='tutorialConsideracoesFinais'>
+				<h3>Considerações Finais</h3>
+				<p>
+					Você deve ter reparado que qualquer um pode votar e pode-se criar contas infinitas para votar, 
+					para usar em produção faça uma validação de quem pode votar ou não, cadidato que venceue etc, 
+					Até próxima desenvolvedor Blockchain.
+				</p>
+			</div>
+		</>
+	}
 ]
 
 function tutoriais(state = estadoTutoriais, action){

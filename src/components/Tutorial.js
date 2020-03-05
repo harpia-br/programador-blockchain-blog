@@ -135,8 +135,7 @@ const Teoria = () => {
 		<div id='tutorialOQueEUmSmartContract'>
 			<h3>O que é um Smart Contract?</h3>
 			<p>
-				Todo código na Blockchain é um smart contract. São eles que constroem os blocos de dados. Nos vamos escrever um smart contract para alimentar nossa lista de tarefas.
-				Ele será responsável lista, criar e completar nossas tarefas na aplicação.
+				Todo código na Blockchain é um smart contract. São eles que constroem os blocos de dados. Nos vamos escrever um smart contract para armazenar e contralar os dados.
 			</p>
 			<p>
 				<b>Smart Contracts em Ethereum são escrito na linguagem Solidity</b>, todo o código dele é imutável. Depois que for posto na rede Blockchain não pode ser alterado nada do código,
